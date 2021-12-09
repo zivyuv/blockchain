@@ -16,15 +16,13 @@ const Card = ({header, content, price, submitHandler}) => {
                 <p>Some text about the the offer..</p>
                 <p>Some text about the the offer..</p>
 
-                <p>
-                    <ul className={CardStyle.ul}> 
-                        <li className={CardStyle.li} >my rate</li>
-                        <li className={CardStyle.li} >times bought</li>
-                        <li className={CardStyle.li} ><a href="https://www.google.com/">link to social / prev work</a></li>
+                    <div className="container"> 
+                        <h5 className="badge badge-success" >my rate</h5>
+                        <h5 className="badge badge-success" >times bought</h5>
+                        <a className="badge badge-success" href="https://www.google.com/">link to social / prev work</a>
 
-                        <li><button>{strPrice}</button></li>
-                    </ul>
-                </p>
+                        <span><button>{strPrice}</button></span>
+                    </div>
             </div>
         </div>
     );

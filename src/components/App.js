@@ -105,9 +105,7 @@ class App extends Component {
         { this.state.loading
           ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
           : <div>
-            <button onClick={() => this.addUser("sadf")}>add user</button>
             <Main account={this.state.account} usersCount={this.state.usersCount}/>
-            {/* <Card/> */}
             </div>
         }
       </div>

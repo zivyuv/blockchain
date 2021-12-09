@@ -2,9 +2,9 @@ import Home from "../home/Home";
 import NewCard from "../new_offer_card/NewCard";
 import MyStatus from "../my_status/MyStatus";
 import Card from "../card/Card";
+import Explore from "../explore/Explore";
 import {Route, Switch, Redirect} from "react-router";
 import React, { useState } from 'react';
-import { UserContext } from "../UserContext";
 
 const Main = ({getMyCards, getAllCards, account, usersCount}) => {
     const [user, setUser] = useState(null);
@@ -22,9 +22,9 @@ const Main = ({getMyCards, getAllCards, account, usersCount}) => {
             <Route path='/my-status'>
                 <MyStatus getMyCards={getMyCards} account={account}/>
             </Route>
-            {/* <Route path='/explore'>
+            <Route path='/explore'>
                 <Explore allCards={getAllCards}/>
-            </Route> */}
+            </Route>
         </Switch>
 
     );
