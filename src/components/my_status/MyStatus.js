@@ -1,10 +1,11 @@
 import MyStatusStyle from './MyStatus.module.css'
 import React from 'react';
 
-const MyStatus = () => {
+const MyStatus = ({account}) => {
+    
     return (
-        <div>
-            My status
+        <div className="text-center mt-5">
+            {account}
         </div>
     );
 }

@@ -3,6 +3,7 @@ import Web3 from 'web3';
 import Identicon from 'identicon.js';
 import './App.css';
 import Decentragram from '../abis/Decentragram.json'
+import GiveNTake from '../abis/GiveNTake.json'
 import Navbar from './navbar/Navbar'
 import Main from './main/Main'
 import NewCard from './new_offer_card/NewCard';
@@ -35,14 +36,19 @@ class App extends Component {
     this.setState({ account: accounts[0] })
     // Network ID
     const networkId = await web3.eth.net.getId()
-    const networkData = Decentragram.networks[networkId]
+    const networkData = GiveNTake.networks[networkId]
     if(networkData) {
       
-      const decentragram = new web3.eth.Contract(Decentragram.abi, networkData.address)
-      this.setState({ decentragram })
+      const giveNTake = new web3.eth.Contract(GiveNTake.abi, networkData.address)
+      this.setState({ giveNTake })
       
 
       // get number of cards (=cardsCount)
+      const usersCount = await giveNTake.methods.usersCount().call()
+      this.setState({ usersCount })
+
+      console.log(usersCount)
+
 
       this.setState({ loading: false})
      
@@ -64,6 +70,12 @@ class App extends Component {
   }
 
 
+  addUser = userName => {
+    this.setState({ loading: true })
+      this.state.giveNTake.methods.addUser(userName).send({ from: this.state.account }).on('transactionHash', (hash) => {
+        this.setState({ loading: false })
+    })
+  }
 
   // indorceSeller(cardId) {
   //   this.setState({ loading: true })
@@ -75,12 +87,13 @@ class App extends Component {
     super(props)
     this.state = {
       account: '',
-      simpleStorage: null,
-      images: [],
+      giveNTake: null,
+      cards: [],
+      usersCount: 0,
       loading: true
     }
 
-    // this.uploadImage = this.uploadImage.bind(this)
+    this.addUser = this.addUser.bind(this)
     // this.tipImageOwner = this.tipImageOwner.bind(this)
     // this.captureFile = this.captureFile.bind(this)
   }
@@ -92,7 +105,8 @@ class App extends Component {
         { this.state.loading
           ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
           : <div>
-            <Main />
+            <button onClick={() => this.addUser("sadf")}>add user</button>
+            <Main account={this.state.account} usersCount={this.state.usersCount}/>
             {/* <Card/> */}
             </div>
         }
