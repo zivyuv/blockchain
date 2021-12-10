@@ -1,8 +1,11 @@
 import MyStatusStyle from './MyStatus.module.css'
-import React from 'react';
+import React, { useContext } from 'react';
+import { accountContext } from '../AccountContext'
 
-const MyStatus = ({account}) => {
-    
+const MyStatus = () => {
+
+    const { account, setAccount }  = useContext(accountContext)
+
     return (
         <div className="text-center mt-5">
             {account}

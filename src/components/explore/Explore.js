@@ -6,7 +6,7 @@ const Explore = ({}) => {
 
     let cards = []
     for(let i=0; i<10; i++) {
-        let card = <Card header="header" content="content" price="1123" submitHandler={()=> console.log(i)}/>
+        let card = <Card header="sdfgsdfgsdfgsdf" content="dfgsdfgsdfgsdfgsdfgsdfbvcx\nsgsdfgsdfg" price="1123" submitHandler={()=> console.log(i)}/>
         cards.push(card)
     }
 
