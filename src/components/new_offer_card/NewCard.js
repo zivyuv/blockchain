@@ -1,7 +1,16 @@
 import CardStyle from './NewCard.module.css'
-import React from 'react';
+import React, {useRef} from 'react';
 
-const NewCard = ({_onSubmit}) => {
+const NewCard = ({postOffer}) => {
+
+    const headerRef = useRef();
+    const contentRef = useRef();
+    const priceRf = useRef();
+    const submitHandler = (event) => {
+    event.preventDefault();
+
+    const enteredHeader = userNameInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
     return (
             <div className={CardStyle.container}>
                 <form>
@@ -17,7 +26,7 @@ const NewCard = ({_onSubmit}) => {
                     <label >Url to social network</label>
                     <input type="url" id="url" name="url" placeholder="Enter url.."/>  
 
-                    <input type="submit" value="Submit" onSubmit={_onSubmit}></input>
+                    <input type="submit" value="Submit" onSubmit={() => postOffer()}></input>
                 </form>
             </div>
     );

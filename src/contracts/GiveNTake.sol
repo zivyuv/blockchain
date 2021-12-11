@@ -64,6 +64,7 @@ contract GiveNTake {
 
   constructor() public {
     //name = "Decentragram";
+    // postOffer("Example offer", "Example content", 10);
   }
 
   function addUser(string memory _name) public {

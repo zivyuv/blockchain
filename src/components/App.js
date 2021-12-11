@@ -45,20 +45,25 @@ class App extends Component {
             // get number of cards (=cardsCount)
             const usersCount = await giveNTake.methods.usersCount().call()
             this.setState({usersCount})
-
+            
+            const cardsCount = await giveNTake.methods.cardsCount().call()
+            this.setState({cardsCount})
+            console.log("cards count is " + cardsCount)
             this.setState({loading: false})
 
-            // Load images
-            // for (var i = 1; i <= cardsCount; i++) {
-            // const image = await simpleStorage.methods.images(i).call()
-            // this.setState({
-            //     images: [...this.state.images, image]
-            // })
-            // }
+            // Load cards
+            for (var i = 1; i <= cardsCount; i++) {
+            console.log("enterd for ")
+
+            const card = await giveNTake.methods.cards(i).call()
+            this.setState({
+                cards: [...this.state.cards, card]
+            })
+            }
             // Sort images. Show highest rate cards first
 
             // this.setState({
-            // images: this.state.images.sort((a,b) => b.rate - a.rate )
+            // cards: this.state.cards.sort((a,b) => b.rate - a.rate )
             // })
         } else {
             window.alert('SimpleStorage contract not deployed to detected network.')
@@ -89,6 +94,13 @@ class App extends Component {
         window.location.reload(false)
     }
 
+    async postOffer (header, content, price) {
+        this.setState({loading: true})
+        this.state.giveNTake.methods.postOffer(header, content, price).send({from: this.state.account}).on('transactionHash', (hash) => {
+            window.location.reload(false)
+            this.setState({loading: false})
+        })
+    }
     // indorceSeller(cardId) {
     // this.setState({ loading: true })
     // this.state.simpleStorage.methods.indorceSeller(cardId)
@@ -107,6 +119,7 @@ class App extends Component {
         }
 
         this.addUser = this.addUser.bind(this)
+        this.postOffer = this.postOffer.bind(this)
 
         // this.tipImageOwner = this.tipImageOwner.bind(this)
         // this.captureFile = this.captureFile.bind(this)
@@ -115,6 +128,7 @@ class App extends Component {
     render() {
         const account = this.state.account
         const addUser = this.addUser
+        const postOffer = this.postOffer
         return (
             <AuthContextProvider >
                 <accountContext.Provider value={
@@ -135,11 +149,13 @@ class App extends Component {
                             <Main account={
                                     this.state.account
                                 }
+                                cards={this.state.cards}
                                 usersCount={
                                     this.state.usersCount
                                 }
                                 giveNTake={this.giveNTake}
                                 userData={this.userData}
+                                postOffer={postOffer}
                                 />
                         </div>
                     } </div>

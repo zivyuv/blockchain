@@ -9,7 +9,7 @@ import {accountContext} from '../AccountContext';
 import AuthContext from "../auth-context";
 import AuthForm from "../auth/AuthForm";
 
-const Main = ({ usersCount, giveNTake }) => {
+const Main = ({ usersCount, giveNTake, cards, postOffer }) => {
 
     const { account, addUser }  = useContext(accountContext)
     const { token, isLoggedIn, login, logout } = useContext(AuthContext)
@@ -25,13 +25,14 @@ const Main = ({ usersCount, giveNTake }) => {
                 <Home usersCount={usersCount}
                     />
             </Route>
-            <Route path='/new-card'
-                component={NewCard}></Route>
+            <Route path='/new-card'>
+                <NewCard postOffer={postOffer}/>
+            </Route>
             <Route path='/my-status'>
                 <MyStatus giveNTake={giveNTake} />
             </Route>
             <Route path='/explore'>
-                <Explore giveNTake={giveNTake}/>
+                <Explore giveNTake={giveNTake} cards={cards}/>
             </Route>
 
         </Switch>

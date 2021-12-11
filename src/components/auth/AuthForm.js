@@ -23,8 +23,6 @@ const AuthForm = ({ addUser }) => {
     const enteredUserName = userNameInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
-    // optional: Add validation
-    
     setIsLoading(true);
     if (isLogin) {
         if (localStorage.getItem('UsersLogin')) {
