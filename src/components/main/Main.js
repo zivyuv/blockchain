@@ -10,7 +10,6 @@ import AuthContext from "../auth-context";
 import AuthForm from "../auth/AuthForm";
 
 const Main = ({ usersCount, giveNTake, cards, postOffer }) => {
-
     const { account, addUser }  = useContext(accountContext)
     const { token, isLoggedIn, login, logout } = useContext(AuthContext)
 
@@ -32,7 +31,7 @@ const Main = ({ usersCount, giveNTake, cards, postOffer }) => {
                 <MyStatus giveNTake={giveNTake} />
             </Route>
             <Route path='/explore'>
-                <Explore giveNTake={giveNTake} cards={cards}/>
+                <Explore giveNTake={giveNTake} contractCards={cards}/>
             </Route>
 
         </Switch>

@@ -8,7 +8,7 @@ import NewCard from './new_offer_card/NewCard';
 import MyStatus from './my_status/MyStatus';
 import {accountContext} from './AccountContext';
 import {AuthContextProvider} from './auth-context';
-import { array } from 'fast-check';
+import {array} from 'fast-check';
 
 class App extends Component {
 
@@ -45,7 +45,7 @@ class App extends Component {
             // get number of cards (=cardsCount)
             const usersCount = await giveNTake.methods.usersCount().call()
             this.setState({usersCount})
-            
+
             const cardsCount = await giveNTake.methods.cardsCount().call()
             this.setState({cardsCount})
             console.log("cards count is " + cardsCount)
@@ -53,13 +53,15 @@ class App extends Component {
 
             // Load cards
             for (var i = 1; i <= cardsCount; i++) {
-            console.log("enterd for ")
-
-            const card = await giveNTake.methods.cards(i).call()
-            this.setState({
-                cards: [...this.state.cards, card]
-            })
+                const card = await giveNTake.methods.cards(i).call()
+                this.setState({
+                    cards: [
+                        ...this.state.cards,
+                        card
+                    ]
+                })
             }
+            
             // Sort images. Show highest rate cards first
 
             // this.setState({
@@ -71,7 +73,7 @@ class App extends Component {
     }
 
 
-    async addUser (userName) {
+    async addUser(userName) {
         this.setState({loading: true})
         this.state.giveNTake.methods.addUser(userName).send({from: this.state.account}).on('transactionHash', (hash) => {
             window.location.reload(false)
@@ -82,22 +84,29 @@ class App extends Component {
         const usersCountStr = await this.state.giveNTake.methods.usersCount().call()
         const usersCount = parseInt(usersCountStr)
         const allUsers = window.localStorage.getItem('UsersLogin')
-        allUsers.replace('[', '{').replace(']','}')
+        allUsers.replace('[', '{').replace(']', '}')
         const allUsersParsed = JSON.parse(allUsers)
-        const currAddedUser = allUsersParsed[allUsersParsed.length -1].userName
+        const currAddedUser = allUsersParsed[allUsersParsed.length - 1].userName
 
         let storedUsers = window.localStorage.UsersMap ? JSON.parse(window.localStorage.UsersMap) : [];
-        storedUsers.push({ userName: currAddedUser, userId: usersCount + 1 });
-        this.setState({userData: { userName: currAddedUser, userId: usersCount + 1 } })
+        storedUsers.push({
+            userName: currAddedUser,
+            userId: usersCount + 1
+        });
+        this.setState({
+            userData: {
+                userName: currAddedUser,
+                userId: usersCount + 1
+            }
+        })
         window.localStorage.setItem('UsersMap', JSON.stringify(storedUsers));
         this.setState({loading: false})
         window.location.reload(false)
     }
 
-    async postOffer (header, content, price) {
+    async postOffer(header, content, price) {
         this.setState({loading: true})
         this.state.giveNTake.methods.postOffer(header, content, price).send({from: this.state.account}).on('transactionHash', (hash) => {
-            window.location.reload(false)
             this.setState({loading: false})
         })
     }
@@ -127,10 +136,11 @@ class App extends Component {
 
     render() {
         const account = this.state.account
+        const cards = this.state.cards
         const addUser = this.addUser
         const postOffer = this.postOffer
         return (
-            <AuthContextProvider >
+            <AuthContextProvider>
                 <accountContext.Provider value={
                     {account, addUser}
                 }>
@@ -149,14 +159,19 @@ class App extends Component {
                             <Main account={
                                     this.state.account
                                 }
-                                cards={this.state.cards}
+                                cards={
+                                    cards
+                                }
                                 usersCount={
                                     this.state.usersCount
                                 }
-                                giveNTake={this.giveNTake}
-                                userData={this.userData}
-                                postOffer={postOffer}
-                                />
+                                giveNTake={
+                                    this.state.giveNTake
+                                }
+                                userData={
+                                    this.state.userData
+                                }
+                                postOffer={postOffer}/>
                         </div>
                     } </div>
                 </accountContext.Provider>

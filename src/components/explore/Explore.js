@@ -2,8 +2,7 @@ import ExploreStyle from './Explore.module.css'
 import React from 'react';
 import Card from '../card/Card'
 
-const Explore = ({giveNTake, cards}) => {
-
+const Explore = ({giveNTake, contractCards}) => {
     // get user id from local storage
     const userDataStr = window.localStorage.getItem("UsersMap")
     userDataStr.replace('[', '{').replace(']', '}')
@@ -18,11 +17,11 @@ const Explore = ({giveNTake, cards}) => {
         }
         i++;
     }
-    // let cards = []
-    // for(let i=0; i<10; i++) {
-    //     let card = <Card header="sdfgsdfgsdfgsdf" content="dfgsdfgsdfgsdfgsdfgsdfbvcx\nsgsdfgsdfg" price="1123" submitHandler={()=> console.log(i)}/>
-    //     cards.push(card)
-    // }
+    let cards = []
+    for(let i=0; i<contractCards.length; i++) {
+        let card = <Card header={contractCards[i][1]} content={contractCards[i][2]} price={contractCards[i][3]} submitHandler={()=> console.log(i)}/>
+        cards.push(card)
+    }
 
     const arrayChunk = (arr, n) => {
         const array = arr.slice();
