@@ -6,11 +6,16 @@ import Explore from "../explore/Explore";
 import {Route, Switch, Redirect} from "react-router";
 import React, {useContext} from 'react';
 import {accountContext} from '../AccountContext';
+import AuthContext from "../auth-context";
+import AuthForm from "../auth/AuthForm";
 
 const Main = ({getMyCards, getAllCards, usersCount}) => {
 
     const { account, setAccount }  = useContext(accountContext)
+    const { token, isLoggedIn, login, logout } = useContext(AuthContext)
 
+    if (isLoggedIn) {
+        console.log("logged in")
     return (
         <Switch>
             <Route path='/' exact>
@@ -30,8 +35,21 @@ const Main = ({getMyCards, getAllCards, usersCount}) => {
             </Route>
 
         </Switch>
+    );}
+    else {
+        console.log("NOT logged in")
 
-    );
+        return (
+            <Switch>
+                <Route path='/welcome' exact>
+                    <AuthForm/>
+                </Route>
+                <Route path='/'>
+                    <Redirect to='/welcome'/>
+                </Route>
+            </Switch>
+        );
+    }
 
 }
 

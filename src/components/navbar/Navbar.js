@@ -2,11 +2,12 @@ import NavbarStyle from './Navbar.module.css'
 import React, {useContext} from 'react';
 import {NavLink} from 'react-router-dom';
 import {accountContext} from '../AccountContext';
-
+import AuthContext from '../auth-context';
 
 const Navbar = ({addUser}) => {
 
     const {account, setAccount} = useContext(accountContext)
+    const { token, isLoggedIn, login, logout } = useContext(AuthContext)
 
     const style = {
         'display': 'block',
@@ -44,6 +45,11 @@ const Navbar = ({addUser}) => {
                     <NavLink style={style}
                         to="/new-card">New Offer</NavLink>
                 </li>
+                {isLoggedIn && <li className={
+                    NavbarStyle.li
+                } style={{...style, float: "right", overflow: "hidden" }}>
+                    <button type="button" className="btn btn-light btn-sm" onClick={logout}> logout</button>
+                </li>}
             </ul>
             <div className="dropdown">
             <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

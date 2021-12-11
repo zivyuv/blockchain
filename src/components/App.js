@@ -9,6 +9,7 @@ import Main from './main/Main'
 import NewCard from './new_offer_card/NewCard';
 import MyStatus from './my_status/MyStatus';
 import {accountContext} from './AccountContext';
+import {AuthContextProvider} from './auth-context';
 
 class App extends Component {
 
@@ -69,8 +70,6 @@ class App extends Component {
     }
 
 
-
-
     addUser = (userName, password) => {
         this.setState({loading: true})
         this.state.giveNTake.methods.addUser(userName, password).send({from: this.state.account}).on('transactionHash', (hash) => {
@@ -80,12 +79,10 @@ class App extends Component {
     }
 
     async setAccount(accountIndex) {
-      const web3 = window.web3
-      const accounts = await web3.eth.getAccounts()
-      console.log(accounts)
-      accountIndex < accounts.length && accountIndex >= 0 ? 
-        this.setState({account: accounts[accountIndex]})
-        : alert("This is not a valid account number")
+        const web3 = window.web3
+        const accounts = await web3.eth.getAccounts()
+        console.log(accounts)
+        accountIndex < accounts.length && accountIndex >= 0 ? this.setState({account: accounts[accountIndex]}) : alert("This is not a valid account number")
     }
 
     // indorceSeller(cardId) {
@@ -98,10 +95,11 @@ class App extends Component {
         super(props)
         this.state = {
             account: '',
+            user: null,
             giveNTake: null,
             cards: [],
             usersCount: 0,
-            loading: true,
+            loading: true
         }
 
         this.addUser = this.addUser.bind(this)
@@ -115,26 +113,32 @@ class App extends Component {
         const account = this.state.account
         const setAccount = this.setAccount
         return (
-            <accountContext.Provider value={{account, setAccount}} >
-                <div style={
-                    {
-                        margin: '0',
-                        padding: '0'
-                    }
+            <AuthContextProvider user={this.user}>
+                <accountContext.Provider value={
+                    {account, setAccount}
                 }>
-                    <Navbar addUser={this.addUser}/> {
-                    this.state.loading ? <div id="loader" className="text-center mt-5">
-                        <p>Loading...</p>
-                    </div> : <div>
-                        <Main account={
-                                this.state.account
-                            }
-                            usersCount={
-                                this.state.usersCount
-                            }/>
-                    </div>
-                } </div>
-            </accountContext.Provider>
+                    <div style={
+                        {
+                            margin: '0',
+                            padding: '0'
+                        }
+                    }>
+                        <Navbar addUser={
+                            this.addUser
+                        }/> {
+                        this.state.loading ? <div id="loader" className="text-center mt-5">
+                            <p>Loading...</p>
+                        </div> : <div>
+                            <Main account={
+                                    this.state.account
+                                }
+                                usersCount={
+                                    this.state.usersCount
+                                }/>
+                        </div>
+                    } </div>
+                </accountContext.Provider>
+            </AuthContextProvider>
         );
     }
 }
