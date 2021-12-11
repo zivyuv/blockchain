@@ -14,6 +14,7 @@ contract GiveNTake {
     address owner;
     uint cardAmount;
     uint[] mycards;
+    uint[] myPurchases;
   }
 
   struct Card {
