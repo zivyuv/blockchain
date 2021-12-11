@@ -74,6 +74,7 @@ class App extends Component {
     addUser = (userName, password) => {
         this.setState({loading: true})
         this.state.giveNTake.methods.addUser(userName, password).send({from: this.state.account}).on('transactionHash', (hash) => {
+            window.location.reload(false)
             this.setState({loading: false})
         })
     }
