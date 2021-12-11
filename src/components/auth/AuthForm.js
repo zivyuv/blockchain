@@ -51,9 +51,8 @@ const AuthForm = ({ addUser }) => {
         storedUsers.push({ userName: enteredUserName, password: enteredPassword});
         window.localStorage.setItem('UsersLogin', JSON.stringify(storedUsers));
         addUser(enteredUserName).then(_ => {
-          setIsLoading(false);
           window.location.reload(false)
-
+          setIsLoading(false);
         })
     }
   }

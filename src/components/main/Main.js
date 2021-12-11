@@ -28,7 +28,7 @@ const Main = ({ usersCount, giveNTake }) => {
             <Route path='/new-card'
                 component={NewCard}></Route>
             <Route path='/my-status'>
-                <MyStatus giveNTake={giveNTake}/>
+                <MyStatus giveNTake={giveNTake} />
             </Route>
             <Route path='/explore'>
                 <Explore giveNTake={giveNTake}/>

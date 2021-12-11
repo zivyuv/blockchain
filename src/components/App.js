@@ -8,6 +8,7 @@ import NewCard from './new_offer_card/NewCard';
 import MyStatus from './my_status/MyStatus';
 import {accountContext} from './AccountContext';
 import {AuthContextProvider} from './auth-context';
+import { array } from 'fast-check';
 
 class App extends Component {
 
@@ -45,9 +46,6 @@ class App extends Component {
             const usersCount = await giveNTake.methods.usersCount().call()
             this.setState({usersCount})
 
-            console.log(usersCount)
-
-
             this.setState({loading: false})
 
             // Load images
@@ -76,11 +74,16 @@ class App extends Component {
         })
         this.setState({loading: true})
 
-        const indexId = await this.state.giveNTake.methods.usersCount().call()
+        const usersCountStr = await this.state.giveNTake.methods.usersCount().call()
+        const usersCount = parseInt(usersCountStr)
         const allUsers = window.localStorage.getItem('UsersLogin')
-        const currAddedUser = JSON.parse(allUsers[allUsers.length -1]).userName
+        allUsers.replace('[', '{').replace(']','}')
+        const allUsersParsed = JSON.parse(allUsers)
+        const currAddedUser = allUsersParsed[allUsersParsed.length -1].userName
+
         let storedUsers = window.localStorage.UsersMap ? JSON.parse(window.localStorage.UsersMap) : [];
-        storedUsers.push({ userName: currAddedUser, userId: indexId });
+        storedUsers.push({ userName: currAddedUser, userId: usersCount + 1 });
+        this.setState({userData: { userName: currAddedUser, userId: usersCount + 1 } })
         window.localStorage.setItem('UsersMap', JSON.stringify(storedUsers));
         this.setState({loading: false})
         window.location.reload(false)
@@ -96,7 +99,7 @@ class App extends Component {
         super(props)
         this.state = {
             account: '',
-            userId: null,
+            userData: null,
             giveNTake: null,
             cards: [],
             usersCount: 0,
@@ -136,6 +139,7 @@ class App extends Component {
                                     this.state.usersCount
                                 }
                                 giveNTake={this.giveNTake}
+                                userData={this.userData}
                                 />
                         </div>
                     } </div>
