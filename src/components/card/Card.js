@@ -52,7 +52,7 @@ const Card = ({header, content, price, buyHandler}) => { // const strPrice = "Bu
             <button className="btn btn-info"
                 style={
                     {
-                        marginBottom: "1rem",
+                        marginBottom: "1rem", // dump note
                         marginLeft: "3rem",
                         marginRight: "3rem"
                     }
