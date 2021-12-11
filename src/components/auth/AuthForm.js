@@ -3,8 +3,8 @@ import React, { useState, useRef, useContext } from 'react';
 import AuthContext from '../auth-context';
 import classes from './AuthForm.module.css';
 
-const AuthForm = () => {
-  const emailInputRef = useRef();
+const AuthForm = ({ addUser }) => {
+  const userNameInputRef = useRef();
   const passwordInputRef = useRef();
 
   const authCtx = useContext(AuthContext);
@@ -20,7 +20,7 @@ const AuthForm = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    const enteredEmail = emailInputRef.current.value;
+    const enteredUserName = userNameInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
     // optional: Add validation
@@ -30,15 +30,15 @@ const AuthForm = () => {
         if (localStorage.getItem('UsersLogin')) {
             const allStoredUsers = JSON.parse(localStorage.getItem('UsersLogin'));
             const matchedUser = allStoredUsers.filter(user => {
-                return enteredEmail === user.email && enteredPassword === user.password;
+                return enteredUserName === user.userName && enteredPassword === user.password;
             })
             if (matchedUser.length) {
                 // set currently logged user in local storage
-                window.localStorage.setItem("loggedIn", matchedUser[0])
+                window.localStorage.setItem("loggedIn", matchedUser[0].userName)
                 console.log('Login successful')
-                authCtx.login("loginToken")
+                authCtx.login(matchedUser[0].userName)
             } else {
-                console.log('Wrong credentials')
+                window.alert('Wrong credentials')
             }
             setIsLoading(false);
         } else {
@@ -48,10 +48,13 @@ const AuthForm = () => {
         
     } else { 
         let storedUsers = window.localStorage.UsersLogin ? JSON.parse(window.localStorage.UsersLogin) : [];
-        storedUsers.push({ email: enteredEmail, password: enteredPassword});
+        storedUsers.push({ userName: enteredUserName, password: enteredPassword});
         window.localStorage.setItem('UsersLogin', JSON.stringify(storedUsers));
-        setIsLoading(false);
-        window.location.reload(false)
+        addUser(enteredUserName).then((res) => {
+          setIsLoading(false);
+          window.location.reload(false)
+
+        })
     }
   }
   return (
@@ -59,8 +62,8 @@ const AuthForm = () => {
       <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
-          <label htmlFor='email'>Your Email</label>
-          <input type='email' id='email' required ref={emailInputRef} />
+          <label htmlFor='text'>Your Email</label>
+          <input type='text' id='userName' required ref={userNameInputRef} />
         </div>
         <div className={classes.control}>
           <label htmlFor='password'>Your Password</label>

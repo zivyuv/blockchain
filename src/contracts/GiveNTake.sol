@@ -8,14 +8,12 @@ contract GiveNTake {
   struct User {
     uint id;
     string name;
-    string password;
     address owner;
   }
 
   event UserAdded(
     uint id,
     string name,
-    string password,
     address owner
   );
 
@@ -24,12 +22,12 @@ contract GiveNTake {
     name = "Decentragram";
   }
 
-  function addUser(string memory _name, string memory _password) public {
+  function addUser(string memory _name) public {
     // Increment image id
     usersCount ++;
-    users[usersCount] = User(usersCount, _name, _password, msg.sender);
+    users[usersCount] = User(usersCount, _name, msg.sender);
 
-    emit UserAdded(usersCount, _name, _password, msg.sender);
+    emit UserAdded(usersCount, _name, msg.sender);
   }
 
 }

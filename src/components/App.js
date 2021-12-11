@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import Web3 from 'web3';
-import Identicon from 'identicon.js';
 import './App.css';
-import Decentragram from '../abis/Decentragram.json'
 import GiveNTake from '../abis/GiveNTake.json'
 import Navbar from './navbar/Navbar'
 import Main from './main/Main'
@@ -70,12 +68,22 @@ class App extends Component {
     }
 
 
-    addUser = (userName, password) => {
+    async addUser (userName) {
         this.setState({loading: true})
-        this.state.giveNTake.methods.addUser(userName, password).send({from: this.state.account}).on('transactionHash', (hash) => {
+        this.state.giveNTake.methods.addUser(userName).send({from: this.state.account}).on('transactionHash', (hash) => {
             window.location.reload(false)
             this.setState({loading: false})
         })
+        this.setState({loading: true})
+
+        const indexId = await this.state.giveNTake.methods.usersCount().call()
+        const allUsers = window.localStorage.getItem('UsersLogin')
+        const currAddedUser = JSON.parse(allUsers[allUsers.length -1]).userName
+        let storedUsers = window.localStorage.UsersMap ? JSON.parse(window.localStorage.UsersMap) : [];
+        storedUsers.push({ userName: currAddedUser, userId: indexId });
+        window.localStorage.setItem('UsersMap', JSON.stringify(storedUsers));
+        this.setState({loading: false})
+        window.location.reload(false)
     }
 
     async setAccount(accountIndex) {
@@ -95,7 +103,7 @@ class App extends Component {
         super(props)
         this.state = {
             account: '',
-            user: null,
+            userId: null,
             giveNTake: null,
             cards: [],
             usersCount: 0,
@@ -112,10 +120,11 @@ class App extends Component {
     render() {
         const account = this.state.account
         const setAccount = this.setAccount
+        const addUser = this.addUser
         return (
-            <AuthContextProvider user={this.user}>
+            <AuthContextProvider >
                 <accountContext.Provider value={
-                    {account, setAccount}
+                    {account, setAccount, addUser}
                 }>
                     <div style={
                         {
@@ -134,7 +143,9 @@ class App extends Component {
                                 }
                                 usersCount={
                                     this.state.usersCount
-                                }/>
+                                }
+                                giveNTake={this.giveNTake}
+                                />
                         </div>
                     } </div>
                 </accountContext.Provider>

@@ -9,9 +9,9 @@ import {accountContext} from '../AccountContext';
 import AuthContext from "../auth-context";
 import AuthForm from "../auth/AuthForm";
 
-const Main = ({getMyCards, getAllCards, usersCount}) => {
+const Main = ({ usersCount, giveNTake }) => {
 
-    const { account, setAccount }  = useContext(accountContext)
+    const { account, setAccount, addUser }  = useContext(accountContext)
     const { token, isLoggedIn, login, logout } = useContext(AuthContext)
 
     if (isLoggedIn) {
@@ -28,10 +28,10 @@ const Main = ({getMyCards, getAllCards, usersCount}) => {
             <Route path='/new-card'
                 component={NewCard}></Route>
             <Route path='/my-status'>
-                <MyStatus getMyCards={getMyCards}/>
+                <MyStatus giveNTake={giveNTake}/>
             </Route>
             <Route path='/explore'>
-                <Explore allCards={getAllCards}/>
+                <Explore giveNTake={giveNTake}/>
             </Route>
 
         </Switch>
@@ -42,7 +42,7 @@ const Main = ({getMyCards, getAllCards, usersCount}) => {
         return (
             <Switch>
                 <Route path='/welcome' exact>
-                    <AuthForm/>
+                    <AuthForm addUser={addUser}/>
                 </Route>
                 <Route path='/'>
                     <Redirect to='/welcome'/>
