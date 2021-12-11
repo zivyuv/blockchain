@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {accountContext} from '../AccountContext';
 
 
-const Navbar = () => {
+const Navbar = ({addUser}) => {
 
     const {account, setAccount} = useContext(accountContext)
 
@@ -51,7 +51,7 @@ const Navbar = () => {
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <button className="dropdown-item" type="button" onClick={() => setAccount(0)}>0</button>
-                <button className="dropdown-item" type="button" onClick={() => setAccount(1)}>1</button>
+                <button className="dropdown-item" type="button" onClick={() => addUser("ssdfsdf", "sdfsd")}>1</button>
                 <button className="dropdown-item" type="button" onClick={() => setAccount(2)}>2</button>
                 <button className="dropdown-item" type="button" onClick={() => setAccount(3)}>3</button>
                 <button className="dropdown-item" type="button" onClick={() => setAccount(4)}>4</button>

@@ -71,9 +71,9 @@ class App extends Component {
 
 
 
-    addUser = userName => {
+    addUser = (userName, password) => {
         this.setState({loading: true})
-        this.state.giveNTake.methods.addUser(userName).send({from: this.state.account}).on('transactionHash', (hash) => {
+        this.state.giveNTake.methods.addUser(userName, password).send({from: this.state.account}).on('transactionHash', (hash) => {
             this.setState({loading: false})
         })
     }
@@ -81,6 +81,7 @@ class App extends Component {
     async setAccount(accountIndex) {
       const web3 = window.web3
       const accounts = await web3.eth.getAccounts()
+      console.log(accounts)
       accountIndex < accounts.length && accountIndex >= 0 ? 
         this.setState({account: accounts[accountIndex]})
         : alert("This is not a valid account number")
@@ -120,9 +121,7 @@ class App extends Component {
                         padding: '0'
                     }
                 }>
-                    <Navbar account={
-                        this.state.account
-                    }/> {
+                    <Navbar addUser={this.addUser}/> {
                     this.state.loading ? <div id="loader" className="text-center mt-5">
                         <p>Loading...</p>
                     </div> : <div>
