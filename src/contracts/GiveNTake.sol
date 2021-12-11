@@ -14,7 +14,6 @@ contract GiveNTake {
     address owner;
     uint cardAmount;
     uint[] mycards;
-    uint[] myPurchases;
   }
 
   struct Card {
@@ -95,13 +94,13 @@ contract GiveNTake {
         //currUser.my_cards[curr_amount] = currCard;
         currUser.cardAmount = curr_amount+1;
     }
-  function buyOffer(uint _cardId) public {
+  function buyOffer(uint _cardId) public payable {
         require(_cardId > 0 && _cardId <= cardsCount);
 
         Card memory _card = cards[_cardId];
         address payable _owner = _card.owner;
         
-        _owner.transfer(_card.price);
+        _owner.transfer(msg.value);
         _card.soldCount ++;
         cards[_cardId] = _card;     // update the card
 

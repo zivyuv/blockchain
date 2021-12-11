@@ -2,7 +2,9 @@ import ExploreStyle from './Explore.module.css'
 import React from 'react';
 import Card from '../card/Card'
 
-const Explore = ({giveNTake, contractCards}) => {
+
+const ETHVALUE = 4000 // about 4000 dollars
+const Explore = ({giveNTake, contractCards, buyOffer}) => {
     // get user id from local storage
     const userDataStr = window.localStorage.getItem("UsersMap")
     userDataStr.replace('[', '{').replace(']', '}')
@@ -19,7 +21,9 @@ const Explore = ({giveNTake, contractCards}) => {
     }
     let cards = []
     for(let i=0; i<contractCards.length; i++) {
-        let card = <Card header={contractCards[i][1]} content={contractCards[i][2]} price={contractCards[i][3]} submitHandler={()=> console.log(i)}/>
+        const ethPrice = parseInt(contractCards[i][3]) / ETHVALUE
+        const priceToPay = window.web3.utils.toWei(ethPrice.toString(), 'Ether')
+        const card = <Card header={contractCards[i][1]} content={contractCards[i][2]} price={contractCards[i][3]} soldCount={contractCards[i][4]} buyHandler={()=> buyOffer(contractCards[i][0], priceToPay)}/>
         cards.push(card)
     }
 

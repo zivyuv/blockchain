@@ -110,6 +110,13 @@ class App extends Component {
             this.setState({loading: false})
         })
     }
+   
+    async buyOffer(cardId, price) {
+        this.setState({loading: true})
+        this.state.giveNTake.methods.buyOffer(cardId).send({from: this.state.account, value: price}).on('transactionHash', (hash) => {
+            this.setState({loading: false})
+        })
+    }
     // indorceSeller(cardId) {
     // this.setState({ loading: true })
     // this.state.simpleStorage.methods.indorceSeller(cardId)
@@ -129,6 +136,7 @@ class App extends Component {
 
         this.addUser = this.addUser.bind(this)
         this.postOffer = this.postOffer.bind(this)
+        this.buyOffer = this.buyOffer.bind(this)
 
         // this.tipImageOwner = this.tipImageOwner.bind(this)
         // this.captureFile = this.captureFile.bind(this)
@@ -139,6 +147,7 @@ class App extends Component {
         const cards = this.state.cards
         const addUser = this.addUser
         const postOffer = this.postOffer
+        const buyOffer = this.buyOffer
         return (
             <AuthContextProvider>
                 <accountContext.Provider value={
@@ -171,7 +180,8 @@ class App extends Component {
                                 userData={
                                     this.state.userData
                                 }
-                                postOffer={postOffer}/>
+                                postOffer={postOffer}
+                                buyOffer={buyOffer}/>
                         </div>
                     } </div>
                 </accountContext.Provider>
