@@ -86,13 +86,6 @@ class App extends Component {
         window.location.reload(false)
     }
 
-    async setAccount(accountIndex) {
-        const web3 = window.web3
-        const accounts = await web3.eth.getAccounts()
-        console.log(accounts)
-        accountIndex < accounts.length && accountIndex >= 0 ? this.setState({account: accounts[accountIndex]}) : alert("This is not a valid account number")
-    }
-
     // indorceSeller(cardId) {
     // this.setState({ loading: true })
     // this.state.simpleStorage.methods.indorceSeller(cardId)
@@ -111,7 +104,6 @@ class App extends Component {
         }
 
         this.addUser = this.addUser.bind(this)
-        this.setAccount = this.setAccount.bind(this);
 
         // this.tipImageOwner = this.tipImageOwner.bind(this)
         // this.captureFile = this.captureFile.bind(this)
@@ -119,12 +111,11 @@ class App extends Component {
 
     render() {
         const account = this.state.account
-        const setAccount = this.setAccount
         const addUser = this.addUser
         return (
             <AuthContextProvider >
                 <accountContext.Provider value={
-                    {account, setAccount, addUser}
+                    {account, addUser}
                 }>
                     <div style={
                         {
@@ -153,5 +144,6 @@ class App extends Component {
         );
     }
 }
+
 
 export default App;

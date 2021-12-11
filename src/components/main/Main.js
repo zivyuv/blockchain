@@ -11,7 +11,7 @@ import AuthForm from "../auth/AuthForm";
 
 const Main = ({ usersCount, giveNTake }) => {
 
-    const { account, setAccount, addUser }  = useContext(accountContext)
+    const { account, addUser }  = useContext(accountContext)
     const { token, isLoggedIn, login, logout } = useContext(AuthContext)
 
     if (isLoggedIn) {

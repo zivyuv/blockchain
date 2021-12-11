@@ -50,7 +50,7 @@ const AuthForm = ({ addUser }) => {
         let storedUsers = window.localStorage.UsersLogin ? JSON.parse(window.localStorage.UsersLogin) : [];
         storedUsers.push({ userName: enteredUserName, password: enteredPassword});
         window.localStorage.setItem('UsersLogin', JSON.stringify(storedUsers));
-        addUser(enteredUserName).then((res) => {
+        addUser(enteredUserName).then(_ => {
           setIsLoading(false);
           window.location.reload(false)
 
