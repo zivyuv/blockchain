@@ -3,6 +3,7 @@ import React, { useState, useRef, useContext } from 'react';
 import AuthContext from '../auth-context';
 import classes from './AuthForm.module.css';
 
+
 const AuthForm = ({ addUser }) => {
   const userNameInputRef = useRef();
   const passwordInputRef = useRef();
@@ -31,8 +32,6 @@ const AuthForm = ({ addUser }) => {
                 return enteredUserName === user.userName && enteredPassword === user.password;
             })
             if (matchedUser.length) {
-                // set currently logged user in local storage
-                window.localStorage.setItem("loggedIn", matchedUser[0].userName)
                 console.log('Login successful')
                 authCtx.login(matchedUser[0].userName)
             } else {
