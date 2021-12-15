@@ -1,30 +1,41 @@
 import {array} from 'fast-check'
 import React from 'react'
+import { BiLike } from "react-icons/bi";
 
-const MyDetailes = ({ user }) => {
+const MyProfile = ({ user }) => {
 
     return (
-        <div className="container">
-            <h1>Hello {user.name.toUpperCase()}!</h1>
+        <div className="fill-window">
+              <div className="card-header bg-light border-info text-info" >
+              <h1>Hello {
+                user.name.toUpperCase()
+            }, Welcome Back!</h1>
+            <h5><strong>Here are a few facts about you:</strong></h5>
             <div className="row">
                 <div className="col-4"
                     style={
-                        {borderRight: "2px solid black"}
+                        {borderRight: "4px solid black"}
                 }>
-                    <ul className="list-group">
-                        <li className="list-group-item">You are one of XX users we have
+                    <ul className="list-group ">
+                        <li className="list-group-item bg-dark border-info text-info"><strong>You are one of XX active users!</strong>
+                        <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike></li>
+                        <li className="list-group-item bg-dark border-info text-info"><strong>You have XX active listings!</strong>
+                        <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike>
                         </li>
-                        <li className="list-group-item">You have XX active listings
-                        </li>
-                        <li className="list-group-item">You sold XX services untill now</li>
-                        <li className="list-group-item">You have purchased XX services</li>
-                        <li className="list-group-item">Your rating is XX</li>
+                        <li className="list-group-item bg-dark border-info text-info"><strong>You have sold XX services!</strong>
+                        <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike></li>
+                        <li className="list-group-item bg-dark border-info text-info"><strong>You have purchased XX services!</strong>
+                        <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike></li>
+                        <li className="list-group-item bg-dark border-info text-info"><strong>Your user rating is XX!</strong>
+                        <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike></li>
                     </ul>
                 </div>
-                <div className="col-8"> sdfszdg</div>
+                <div className="col-8"><strong>My Active Cards:</strong> </div>
             </div>
-        </div>
+           
+            </div>
+         </div>
     );
 }
 
-export default MyDetailes;
+export default MyProfile;
