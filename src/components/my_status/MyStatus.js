@@ -5,8 +5,8 @@ import MyDetailes from './MyDetails';
 
 const MyStatus = () => {
 
-    const {account, setAccount} = useContext(accountContext)
-
+    const {user} = useContext(accountContext)
+    console.log(user)
     return (
         <div>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -20,7 +20,7 @@ const MyStatus = () => {
             <div className="tab-content" id="myTabContent">
                 <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div className="container">
-                        <MyDetailes />
+                        <MyDetailes user={user}/>
                     </div>
                 </div>
                 <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>

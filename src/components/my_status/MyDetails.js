@@ -1,26 +1,11 @@
 import {array} from 'fast-check'
 import React from 'react'
 
-const MyDetailes = () => {
+const MyDetailes = ({ user }) => {
 
-    const userDataStr = window.localStorage.getItem("UsersMap")
-    userDataStr.replace('[', '{').replace(']', '}')
-    const usersData = JSON.parse(userDataStr)
-    const currUser = window.localStorage.getItem("loggedIn")
-    let i = 0;
-    let userId = ""
-    while (true) {
-        if (usersData[i].userName == currUser) {
-            userId = usersData[i].userId
-            break;
-        }
-        i++;
-    }
     return (
         <div className="container">
-            <h1>Hello {
-                currUser.toUpperCase()
-            }!</h1>
+            <h1>Hello {user.name.toUpperCase()}!</h1>
             <div className="row">
                 <div className="col-4"
                     style={
