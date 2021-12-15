@@ -1,8 +1,15 @@
 import {array} from 'fast-check'
 import React from 'react'
 import { BiLike } from "react-icons/bi";
+import Card from '../card/Card'
 
-const MyProfile = ({ user }) => {
+const MyProfile = ({ user, myCards }) => {
+
+    let cards = []
+    for(let i=0; i<myCards.length; i++) {
+        const card = <Card header={myCards[i][1]} content={myCards[i][2]} price={myCards[i][3]} soldCount={myCards[i][4]} buyHandler={()=> console.log()}/>
+        cards.push(card)
+    }
 
     return (
         <div className="fill-window">
@@ -30,7 +37,13 @@ const MyProfile = ({ user }) => {
                         <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike></li>
                     </ul>
                 </div>
-                <div className="col-8"><strong>My Active Cards:</strong> </div>
+                <div className="col-8"><strong>My Active Cards:</strong> 
+                    {
+                        cards.map((card) => (
+                            <div className="col">{card}</div>
+                        ))
+                    }
+                </div>
             </div>
            
             </div>

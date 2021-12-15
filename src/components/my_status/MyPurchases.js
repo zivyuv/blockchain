@@ -2,7 +2,7 @@ import {array} from 'fast-check'
 import React from 'react'
 import { BiLike } from "react-icons/bi";
 
-const MyPurchases = ({user}) => {
+const MyPurchases = ({user, myCards}) => {
 
     return (
         <div className="fill-window">

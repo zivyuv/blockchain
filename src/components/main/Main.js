@@ -33,7 +33,7 @@ const Main = ({
                     <NewCard postOffer={postOffer}/>
                 </Route>
                 <Route path='/my-status'>
-                    <MyStatus user={user}/>
+                    <MyStatus allCards={cards}/>
                 </Route>
                 <Route path='/explore'>
                     <Explore user={user}

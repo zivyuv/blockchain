@@ -4,14 +4,23 @@ import {accountContext} from '../AccountContext'
 import MyDetailes from './MyDetails';
 import MyPurchases from './MyPurchases';
 
-const MyStatus = () => {
+const MyStatus = ({allCards}) => {
 
     const {user} = useContext(accountContext)
-    console.log(user)
+
+    const userAddress = user.owner
+    const allCardsLen = allCards ? allCards.length : 0
+    var myCards = []
+    for (var i=0; i<allCardsLen; i++) {
+        if (allCards[i].owner == userAddress ) {
+            myCards.push(allCards[i])
+        } 
+    }
+
     return (
         <div>
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
+            <ul className="nav nav-tabs" id="myTab" role="tablist">
+                <li className="nav-item">
                     <a className="nav-link active text-dark" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><strong>Profile</strong></a>
                 </li>
                 <li className="nav-item">
@@ -21,12 +30,12 @@ const MyStatus = () => {
             <div className="tab-content" id="myTabContent">
                 <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div className="fill-window">
-                        <MyDetailes user={user} />
+                        <MyDetailes user={user} myCards={myCards} />
                     </div>
                 </div>
                 <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div className="fill-window">
-                        <MyPurchases user={user} />
+                        <MyPurchases user={user} myCards={myCards} />
                     </div>
                 </div>
             </div>
