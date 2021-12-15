@@ -108,6 +108,7 @@ class App extends Component {
     async buyOffer(cardId, price) {
         this.setState({loading: true})
         this.state.giveNTake.methods.buyOffer(cardId).send({from: this.state.account, value: price}).on('transactionHash', (hash) => {
+            window.location.reload(false)
             this.setState({loading: false})
         })
     }

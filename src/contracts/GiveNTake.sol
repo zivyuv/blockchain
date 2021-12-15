@@ -4,7 +4,6 @@ contract GiveNTake {
   //string public name;
   uint public usersCount = 0;
   uint public cardsCount = 0;
-  uint card_amount = 0;
   
 
   struct User {
