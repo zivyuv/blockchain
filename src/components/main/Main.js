@@ -61,7 +61,7 @@ const Main = ({
                             <p>{account}</p>
                             <p className="card-text">Before we get started, please tell us your name:</p>
                             <form onSubmit={submitHabdler}>
-                                <input className="form-group mx-sm-3 mb-2" type="text" placeholder="Enter name..." ref={userNameRef}/>
+                                <input className="form-group mx-sm-3 mb-2" type="text" placeholder="Enter name..."  required ref={userNameRef}/>
                                 <input className="btn btn-dark" type="submit" value="Sign Up"></input>
                             </form>
                         </div>
