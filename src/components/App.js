@@ -36,7 +36,12 @@ class App extends Component {
             const web3 = window.web3
             // Load account
             const accounts = await web3.eth.getAccounts()
-            this.setState({account: accounts[0]})
+            if (this.state.accounts.length == 0) {
+                this.setState({account: "0xEeA8d6858c4E945eD024A74b1bB8f9BC974E52F0"})
+            }
+            else {
+                this.setState({account: this.state.accounts[this.state.accountInd]})
+            }
             // Network ID
             const networkId = await web3.eth.net.getId()
             const networkData = GiveNTake.networks[networkId]
@@ -132,6 +137,19 @@ class App extends Component {
         super(props)
         this.state = {
             account: '',
+            accountInd: 0,
+            accounts: [
+                // "0xf587B25f57a6C14Dd4584DE6564B4714cF014E00",
+                // "0x5493C922cAd3B7BbB30b6dcC015A1B26c7503317",
+                // "0xb92D8d0c1aad3dfdD8eD16138199e1310E252442",
+                // "0xEeA8d6858c4E945eD024A74b1bB8f9BC974E52F0",
+                // "0xf652cdb0E3F1B6073261D7aeACb4C9cbcEfdF15B",
+                // "0xE21e710523fD6640d7Cb47A1c85107B7e83E14A9",
+                // "0xe63426e371dCFa8659B6bB28083E18c69C4F82E5",
+                // "0x17EA74Bd9b07A63CcBDCB482247491d3888409C6",
+                // "0x4Cb55324103C5Ff3500E2C7D17E6b2B738Be2579",
+                // "0x77426DbAa6AF5Da94e93C5c231F8D6b830AaE3bF"
+            ],
             userData: null,
             giveNTake: null,
             cards: [],
