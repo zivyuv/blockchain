@@ -13,8 +13,8 @@ import {array} from 'fast-check';
 class App extends Component {
 
     async componentWillMount() {
-        await this.loadWeb3()
-        await this.loadBlockchainData()
+        const ans = await this.loadWeb3()
+        await this.loadBlockchainData(ans)
     }
 
     async loadWeb3() {
@@ -25,50 +25,55 @@ class App extends Component {
             window.web3 = new Web3(window.web3.currentProvider)
         } else {
             window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+            return false
         }
+        return true
     }
 
-    async loadBlockchainData() {
-        const web3 = window.web3
-        // Load account
-        const accounts = await web3.eth.getAccounts()
-        this.setState({account: accounts[0]})
-        // Network ID
-        const networkId = await web3.eth.net.getId()
-        const networkData = GiveNTake.networks[networkId]
-        if (networkData) {
+    async loadBlockchainData(ans) {
+        if (ans == true) {
 
-            const giveNTake = new web3.eth.Contract(GiveNTake.abi, networkData.address)
-            this.setState({giveNTake})
-
-
-            // get number of cards (=cardsCount)
-            const usersCount = await giveNTake.methods.usersCount().call()
-            this.setState({usersCount})
-
-            const cardsCount = await giveNTake.methods.cardsCount().call()
-            this.setState({cardsCount})
-            console.log("cards count is " + cardsCount)
-            this.setState({loading: false})
-
-            // Load cards
-            for (var i = 1; i <= cardsCount; i++) {
-                const card = await giveNTake.methods.cards(i).call()
-                this.setState({
-                    cards: [
-                        ...this.state.cards,
-                        card
-                    ]
-                })
+            const web3 = window.web3
+            // Load account
+            const accounts = await web3.eth.getAccounts()
+            this.setState({account: accounts[0]})
+            // Network ID
+            const networkId = await web3.eth.net.getId()
+            const networkData = GiveNTake.networks[networkId]
+            if (networkData) {
+    
+                const giveNTake = new web3.eth.Contract(GiveNTake.abi, networkData.address)
+                this.setState({giveNTake})
+    
+    
+                // get number of cards (=cardsCount)
+                const usersCount = await giveNTake.methods.usersCount().call()
+                this.setState({usersCount})
+    
+                const cardsCount = await giveNTake.methods.cardsCount().call()
+                this.setState({cardsCount})
+                console.log("cards count is " + cardsCount)
+                this.setState({loading: false})
+    
+                // Load cards
+                for (var i = 1; i <= cardsCount; i++) {
+                    const card = await giveNTake.methods.cards(i).call()
+                    this.setState({
+                        cards: [
+                            ...this.state.cards,
+                            card
+                        ]
+                    })
+                }
+                
+                // Sort images. Show highest rate cards first
+    
+                // this.setState({
+                // cards: this.state.cards.sort((a,b) => b.rate - a.rate )
+                // })
+            } else {
+                window.alert('SimpleStorage contract not deployed to detected network.')
             }
-            
-            // Sort images. Show highest rate cards first
-
-            // this.setState({
-            // cards: this.state.cards.sort((a,b) => b.rate - a.rate )
-            // })
-        } else {
-            window.alert('SimpleStorage contract not deployed to detected network.')
         }
     }
 
@@ -143,6 +148,15 @@ class App extends Component {
     }
 
     render() {
+        if (this.state.account == '') { // user doesn't have Metamask
+            return (
+                <h2 className="text-center mt-5">
+                    Sorry! <br/> You have to have Metamask
+                    <br/> <h3>Please install and refresh</h3>
+                </h2>
+            );
+        }
+
         const account = this.state.account
         const cards = this.state.cards
         const addUser = this.addUser
