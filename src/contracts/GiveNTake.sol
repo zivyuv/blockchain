@@ -9,6 +9,7 @@ contract GiveNTake {
 
   struct User {
     uint id;
+    string hash;
     string name;
     uint rate;
     address owner;
@@ -28,6 +29,7 @@ contract GiveNTake {
 
   event UserAdded(
     uint id,
+    string hash,
     string name,
     address owner
   );
@@ -53,6 +55,7 @@ contract GiveNTake {
 
   event UserRated(
         uint id,
+        string hash,
         string name,
         uint rate
     );
@@ -66,14 +69,14 @@ contract GiveNTake {
     // postOffer("Example offer", "Example content", 10);
   }
 
-  function addUser(string memory _name) public {
+  function addUser(string memory _userHash, string memory _name) public {
     // Increment image id
     usersCount ++;
     uint[] memory my_cards;
-    users[usersCount] = User(usersCount, _name, 0, msg.sender,0, my_cards);
+    users[usersCount] = User(usersCount, _userHash, _name, 0, msg.sender,0, my_cards);
     usersByAddress[msg.sender] = users[usersCount];
 
-    emit UserAdded(usersCount, _name, msg.sender);
+    emit UserAdded(usersCount, _userHash, _name, msg.sender);
   }
 
   function postOffer(string memory _headline, string memory _content, uint _price) public {

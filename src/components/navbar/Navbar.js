@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {accountContext} from '../AccountContext';
 import AuthContext from '../auth-context';
 
-const Navbar = () => {
+const Navbar = ({ setLogout }) => {
 
     const {account, setAccount} = useContext(accountContext)
     const { token, isLoggedIn, login, logout } = useContext(AuthContext)
@@ -48,7 +48,7 @@ const Navbar = () => {
                 {isLoggedIn && <li className={
                     NavbarStyle.li
                 } style={{...style, float: "right", overflow: "hidden" }}>
-                    <button type="button" className="btn btn-light btn-sm" onClick={logout}> logout</button>
+                    <button type="button" className="btn btn-light btn-sm" onClick={setLogout}> logout</button>
                 </li>}
             </ul>
         </header>

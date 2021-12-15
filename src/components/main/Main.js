@@ -9,11 +9,11 @@ import {accountContext} from '../AccountContext';
 import AuthContext from "../auth-context";
 import AuthForm from "../auth/AuthForm";
 
-const Main = ({ usersCount, giveNTake, cards, postOffer, buyOffer }) => {
+const Main = ({ usersCount, giveNTake, cards, user, postOffer, setLogin, buyOffer }) => {
     const { account, addUser }  = useContext(accountContext)
     const { token, isLoggedIn, login, logout } = useContext(AuthContext)
 
-    if (isLoggedIn) {
+    if (user) {
         console.log("logged in")
     return (
         <Switch>
@@ -42,7 +42,7 @@ const Main = ({ usersCount, giveNTake, cards, postOffer, buyOffer }) => {
         return (
             <Switch>
                 <Route path='/welcome' exact>
-                    <AuthForm addUser={addUser}/>
+                    <AuthForm addUser={addUser} setLogin={setLogin}/>
                 </Route>
                 <Route path='/'>
                     <Redirect to='/welcome'/>
