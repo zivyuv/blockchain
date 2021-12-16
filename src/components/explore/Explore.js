@@ -4,21 +4,8 @@ import Card from '../card/Card'
 
 
 const ETHVALUE = 4000 // about 4000 dollars
-const Explore = ({giveNTake, contractCards, buyOffer}) => {
-    // get user id from local storage
-    const userDataStr = window.localStorage.getItem("UsersMap")
-    userDataStr.replace('[', '{').replace(']', '}')
-    const usersData = JSON.parse(userDataStr)
-    const currUser = window.localStorage.getItem("loggedIn")
-    let i = 0;
-    let userId = ""
-    while (true) {
-        if (usersData[i].userName == currUser) {
-            userId = usersData[i].userId
-            break;
-        }
-        i++;
-    }
+const Explore = ({user, contractCards, buyOffer}) => {
+    
     let cards = []
     for(let i=0; i<contractCards.length; i++) {
         const ethPrice = parseInt(contractCards[i][3]) / ETHVALUE

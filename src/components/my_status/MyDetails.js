@@ -2,26 +2,13 @@ import {array} from 'fast-check'
 import React from 'react'
 import { BiLike } from "react-icons/bi";
 
-const MyProfile = () => {
+const MyProfile = ({ user }) => {
 
-    const userDataStr = window.localStorage.getItem("UsersMap")
-    userDataStr.replace('[', '{').replace(']', '}')
-    const usersData = JSON.parse(userDataStr)
-    const currUser = window.localStorage.getItem("loggedIn")
-    let i = 0;
-    let userId = ""
-    while (true) {
-        if (usersData[i].userName == currUser) {
-            userId = usersData[i].userId
-            break;
-        }
-        i++;
-    }
     return (
         <div className="fill-window">
               <div className="card-header bg-light border-info text-info" >
               <h1>Hello {
-                currUser.toUpperCase()
+                user.toUpperCase()
             }, Welcome Back!</h1>
             <h5><strong>Here are a few facts about you:</strong></h5>
             <div className="row">

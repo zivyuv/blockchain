@@ -27,7 +27,7 @@ const NewCard = ({postOffer}) => {
                     <input type="text" id="headline" name="healine text-info" placeholder="Enter Healine.." ref={headerRef}/>  
 
                     <label >Content</label>
-                    <input type="text" id="content" name="content" placeholder="Enter Content.." ref={contentRef}/>  
+                    <input type="text" id="content" name="content" placeholder="Enter Content.." ref={contentRef} rows="3"/>  
 
                     <label >Price</label>
                     <input type="text" id="price" name="price" placeholder="Enter Price.." ref={priceRf}/>  
