@@ -23,18 +23,19 @@ const NewCard = ({postOffer}) => {
     return (
             <div className={CardStyle.container }>
                 <form onSubmit={submitHandler}>
-                    <label >Headline</label>
-                    <input type="text" id="headline" name="healine text-info" placeholder="Enter Healine.." ref={headerRef}/>  
-
-                    <label >Content</label>
-                    <input type="text" id="content" name="content" placeholder="Enter Content.." ref={contentRef} rows="3"/>  
-
-                    <label >Price</label>
+                    <div className='text-info'>
+                    <label><strong>Headline</strong></label>
+                    <input type="text" id="headline" name="healine" placeholder="Enter Healine.." ref={headerRef}/>  
+                    
+                    <label ><strong>Content</strong></label>
+                    <input type="text" id="content" name="content" placeholder="Enter Content.." ref={contentRef}/>  
+                    
+                    <label ><strong>Price</strong></label>
                     <input type="text" id="price" name="price" placeholder="Enter Price.." ref={priceRf}/>  
                     
-                    <label >Url to social network</label>
+                    <label ><strong>Url to social network</strong></label>
                     <input type="url" id="url" name="url" placeholder="Enter url.." ref={urlRef}/>  
-
+                    </div>
                     <input type="submit" value="Submit"></input>
                 </form>
             </div>

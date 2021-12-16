@@ -8,7 +8,7 @@ const MyProfile = ({ user }) => {
         <div className="fill-window">
               <div className="card-header bg-light border-info text-info" >
               <h1>Hello {
-                user.toUpperCase()
+                user.name.toUpperCase()
             }, Welcome Back!</h1>
             <h5><strong>Here are a few facts about you:</strong></h5>
             <div className="row">

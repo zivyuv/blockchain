@@ -1,5 +1,6 @@
 .container {
   margin: 2rem auto;
+  
   width: 50%;
   position:relative;
   border-radius: 10px;
@@ -34,7 +35,7 @@
 
 .container input[type=submit] {
   width: 100%;
-  background-color: #4CAF50;
+  background-color: rgb(21, 141, 189);
   color: white;
   padding: 14px 20px;
   margin: 7px 0;
@@ -44,5 +45,5 @@
 }
 
 .container input[type=submit]:hover {
-  background-color: #45a049;
+  background-color: #456fa0;
 }
