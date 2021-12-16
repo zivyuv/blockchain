@@ -136,6 +136,7 @@ class App extends Component {
             giveNTake: null,
             cards: [],
             usersCount: 0,
+            cardsCount:0,
             loading: true
         }
 
@@ -187,6 +188,9 @@ class App extends Component {
                                 }
                                 usersCount={
                                     this.state.usersCount
+                                }
+                                cardsCount={
+                                    this.state.cardsCount
                                 }
                                 giveNTake={
                                     this.state.giveNTake

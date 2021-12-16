@@ -9,7 +9,7 @@ import {accountContext} from '../AccountContext';
 import AuthContext from "../auth-context";
 import AuthForm from "../auth/AuthForm";
 
-const Main = ({ usersCount, giveNTake, cards, postOffer, buyOffer }) => {
+const Main = ({ cardsCount, usersCount, giveNTake, cards, postOffer, buyOffer }) => {
     const { account, addUser }  = useContext(accountContext)
     const { token, isLoggedIn, login, logout } = useContext(AuthContext)
 
@@ -22,6 +22,7 @@ const Main = ({ usersCount, giveNTake, cards, postOffer, buyOffer }) => {
             </Route>
             <Route path='/welcome'>
                 <Home usersCount={usersCount}
+                cardsCount = {cardsCount}
                     />
             </Route>
             <Route path='/new-card'>

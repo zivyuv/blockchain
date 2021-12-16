@@ -21,10 +21,10 @@ const NewCard = ({postOffer}) => {
         })
     }
     return (
-            <div className={CardStyle.container}>
+            <div className={CardStyle.container }>
                 <form onSubmit={submitHandler}>
                     <label >Headline</label>
-                    <input type="text" id="headline" name="healine" placeholder="Enter Healine.." ref={headerRef}/>  
+                    <input type="text" id="headline" name="healine text-info" placeholder="Enter Healine.." ref={headerRef}/>  
 
                     <label >Content</label>
                     <input type="text" id="content" name="content" placeholder="Enter Content.." ref={contentRef}/>  
