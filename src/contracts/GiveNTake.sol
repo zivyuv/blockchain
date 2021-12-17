@@ -13,6 +13,7 @@ contract GiveNTake {
     address owner;
     uint cardAmount;
     uint[] mycards;
+    uint ratingCount;
   }
 
   struct Card {
@@ -51,7 +52,7 @@ contract GiveNTake {
     );
 
   event UserRated(
-        uint id,
+        address userAddress,
         string name,
         uint rate
     );
@@ -69,7 +70,7 @@ contract GiveNTake {
     // Increment image id
     usersCount ++;
     uint[] memory my_cards;
-    users[usersCount] = User(usersCount, _name, 0, msg.sender,0, my_cards);
+    users[usersCount] = User(usersCount, _name, 0, msg.sender,0, my_cards, 0);
     usersByAddress[msg.sender] = users[usersCount];
 
     emit UserAdded(usersCount, _name, msg.sender);
@@ -105,15 +106,17 @@ contract GiveNTake {
         emit CardBought(cardsCount, _card.headline, _card.content, _card.price, _card.soldCount, msg.sender);
 
     }
-  function rateSeller(uint _sellerId) private {
-        require(_sellerId > 0 && _sellerId <= usersCount);
+  function rateSeller(address _sellerAddress) public {
+        // require(_sellerId > 0 && _sellerId <= usersCount);
       
         // perhaps add that I can only rate a user once
-        User memory _user =  users[_sellerId];
+        User memory _user =  usersByAddress[_sellerAddress];
         _user.rate ++;
-        users[_sellerId] = _user;
+        usersByAddress[_sellerAddress] = _user;
 
-        emit UserRated(_sellerId, _user.name, _user.rate);
+        User memory rater = usersByAddress[msg.sender];
+        rater.ratingCount++;
+        emit UserRated(_sellerAddress, _user.name, _user.rate);
     }
   function deleteCard(uint id) public {
       Card storage toDelete = cards[id];

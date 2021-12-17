@@ -1,4 +1,3 @@
-import CardStyle from './Card.module.css'
 import React from 'react';
 import Badge from '@material-ui/core/Badge';
 import {Button} from 'react-bootstrap';
@@ -6,15 +5,7 @@ import {ButtonGroup} from 'react-bootstrap';
 import {BsFillStarFill} from "react-icons/bs";
 
 
-const Card = ({
-    header,
-    content,
-    price,
-    buyHandler,
-    level
-}) => { // const strPrice = "Buy" + price
-
-    const ownerLevel = level ? level < 1 ? "" : "Top User" : ""
+const PurchasedCard = ({header, content, rateSeller}) => { // const strPrice = "Buy" + price
     return (
         <div className="card border-info bg-dark mb-4"
             style={
@@ -33,12 +24,8 @@ const Card = ({
                     }>
                         <BsFillStarFill/>
                     </Badge>
-
                 </h5>
-
             </div>
-            <span className="label label-success" style={{color: "green"}}>{ownerLevel}</span>
-
             <div className="card-body text-info">
                 <h5 className="card-title text-light bg-dark"
                     style={
@@ -61,17 +48,6 @@ const Card = ({
                 <Button variant="info"style={{marginBottom: "1rem", textAlign: "center"}}>Buy for {price}$</Button>
                 <Button variant="light"style={{marginBottom: "1rem",textAlign: "center"}}>Rate Seller</Button>
                 </ButtonGroup> */}
-            <button className="btn btn-info"
-                style={
-                    {
-                        marginBottom: "1rem", // dump note
-                        marginLeft: "3rem",
-                        marginRight: "3rem"
-                    }
-                }
-                onClick={buyHandler}>Buy for {price}$</button>
-            {/* <button className="btn btn-light" style={{marginBottom: "1rem", marginLeft: "3rem", marginRight: "3rem"}}>Rate Seller</button> */}
-            {/* <button className="button" className="btn btn-light"style={{marginLeft: "3rem", marginRight: "3rem"}}>Check Out Profile</button> */}
             <div className="card-footer bg-dark border-info ">
 
                 <button className="button" className="btn btn-light"
@@ -81,11 +57,11 @@ const Card = ({
                             marginRight: "3rem"
                         }
                 }>Check Out Profile</button>
-                <button className="button" className="btn btn-light">Rate Seller</button>
+                <button className="button" className="btn btn-light" onClick={rateSeller}>Rate Seller</button>
 
             </div>
         </div>
     );
 }
 
-export default Card;
+export default PurchasedCard;
