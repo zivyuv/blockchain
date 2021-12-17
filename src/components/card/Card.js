@@ -11,6 +11,7 @@ const Card = ({
     content,
     price,
     buyHandler,
+    ownerRate
 }) => { // const strPrice = "Buy" + price
 
     return (
@@ -24,7 +25,7 @@ const Card = ({
                         {textAlign: "center"}
                 }>
                     {header}
-                    <Badge badgeContent={1}
+                    <Badge badgeContent={ownerRate}
                         color="secondary"
                         style={
                             {float: "right"}

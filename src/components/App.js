@@ -159,6 +159,7 @@ class App extends Component {
         const postOffer = this.postOffer
         const buyOffer = this.buyOffer
         const rateSeller = this.rateSeller
+
         return (
             <accountContext.Provider value={
                 {account, user, addUser, rateSeller, buyOffer}

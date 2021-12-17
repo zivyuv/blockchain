@@ -10,6 +10,10 @@ const Explore = ({user, contractCards, buyOffer, giveNTake}) => {
     for (let i = 0; i < contractCards.length; i++) {
         const ethPrice = parseInt(contractCards[i][3]) / ETHVALUE
         const priceToPay = window.web3.utils.toWei(ethPrice.toString(), 'Ether')
+        const ownerRate = contractCards[i].ownerRate
+        console.log(ownerRate)
+        console.log(contractCards[i])
+        console.log(user)
         const card = <Card header={
                 contractCards[i][1]
             }
@@ -24,7 +28,8 @@ const Explore = ({user, contractCards, buyOffer, giveNTake}) => {
             }
             buyHandler={
                 () => buyOffer(contractCards[i][0], priceToPay)
-            }/>
+            }
+            ownerRate={ownerRate}/>
         cards.push(card)
     }
 

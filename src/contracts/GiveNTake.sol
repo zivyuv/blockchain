@@ -23,6 +23,7 @@ contract GiveNTake {
         uint price;
         uint soldCount;
         address payable owner;
+        uint ownerRate;  
         uint isActive;
     }
 
@@ -78,7 +79,9 @@ contract GiveNTake {
 
   function postOffer(string memory _headline, string memory _content, uint _price) public {
         cardsCount ++;
-        cards[cardsCount] = Card(cardsCount, _headline, _content, _price, 0, msg.sender, 1);
+        User memory _owner = usersByAddress[msg.sender];
+        uint rate = _owner.rate;
+        cards[cardsCount] = Card(cardsCount, _headline, _content, _price, 0, msg.sender,rate, 1);
         User memory curr_user = usersByAddress[msg.sender];
       
         //add new card to user list
@@ -113,9 +116,13 @@ contract GiveNTake {
         User memory _user =  usersByAddress[_sellerAddress];
         _user.rate ++;
         usersByAddress[_sellerAddress] = _user;
-
-        User memory rater = usersByAddress[msg.sender];
-        rater.ratingCount++;
+        
+        uint i = 1;
+        for (i=1; i<=cardsCount; i++) {
+          if (cards[i].owner == _sellerAddress) {
+              cards[i].ownerRate++;
+          }
+        }
         emit UserRated(_sellerAddress, _user.name, _user.rate);
     }
   function deleteCard(uint id) public {
