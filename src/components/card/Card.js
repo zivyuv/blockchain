@@ -11,10 +11,8 @@ const Card = ({
     content,
     price,
     buyHandler,
-    level
 }) => { // const strPrice = "Buy" + price
 
-    const ownerLevel = level ? level < 1 ? "" : "Top User" : ""
     return (
         <div className="card border-info bg-dark mb-4"
             style={
@@ -37,8 +35,6 @@ const Card = ({
                 </h5>
 
             </div>
-            <span className="label label-success" style={{color: "green"}}>{ownerLevel}</span>
-
             <div className="card-body text-info">
                 <h5 className="card-title text-light bg-dark"
                     style={
