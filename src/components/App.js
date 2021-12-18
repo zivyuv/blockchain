@@ -75,6 +75,25 @@ class App extends Component {
                         this.setState({user: user})
                     }
                 }
+
+                if (this.state.user) {
+                    //prevPurchases
+                    const transactionsCount = await giveNTake.methods.transactionsCount().call()
+                    for (var i=1; i<=transactionsCount; i++) {
+                        const transaction = await giveNTake.methods.transactions(i).call()
+                        if (transaction.buyer.id == this.state.user.id) {
+                            this.setState({
+                                prevPurchases: [
+                                    ...this.state.prevPurchases,
+                                    transaction.card
+                                ]
+                            })
+                        }
+                    }
+
+
+                }
+
                 this.setState({loading: false})
 
                 // Sort images. Show highest rate cards first
@@ -127,6 +146,7 @@ class App extends Component {
         this.state = {
             account: '',
             user: null,
+            prevPurchases: [],
             giveNTake: null,
             cards: [],
             users: [],
@@ -155,6 +175,7 @@ class App extends Component {
         }
         const account = this.state.account
         const user = this.state.user
+        const prevPurchases = this.state.prevPurchases
         const cards = this.state.cards
         const addUser = this.addUser
         const postOffer = this.postOffer
@@ -163,7 +184,7 @@ class App extends Component {
 
         return (
             <accountContext.Provider value={
-                {account, user, addUser, rateSeller, buyOffer}
+                {account, user, addUser, rateSeller, buyOffer, prevPurchases}
             }>
                 <div style={
                     {

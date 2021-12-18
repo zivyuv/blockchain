@@ -1,9 +1,11 @@
 pragma solidity ^0.5.0;
+pragma experimental ABIEncoderV2;
 
 contract GiveNTake {
   //string public name;
   uint public usersCount = 0;
   uint public cardsCount = 0;
+  uint public transactionsCount = 0;
   
 
   struct User {
@@ -26,6 +28,11 @@ contract GiveNTake {
         uint ownerRate;  
         uint isActive;
     }
+
+  struct Transaction {
+    User buyer;
+    Card card;
+  }
 
   event UserAdded(
     uint id,
@@ -58,6 +65,7 @@ contract GiveNTake {
         uint rate
     );
 
+    mapping (uint => Transaction) public transactions;
     mapping(uint => User) public users;
     mapping(uint => Card) public cards;
     mapping (address => User) public usersByAddress;
@@ -109,6 +117,11 @@ contract GiveNTake {
         _owner.transfer(msg.value);
         _card.soldCount ++;
         cards[_cardId] = _card;     // update the card
+
+        // add transaction 
+        transactionsCount++;
+        User memory buyer = usersByAddress[msg.sender];
+        transactions[transactionsCount] = Transaction(buyer, _card);
 
         emit CardBought(cardsCount, _card.headline, _card.content, _card.price, _card.soldCount, msg.sender);
 

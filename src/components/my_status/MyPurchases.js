@@ -1,19 +1,19 @@
 import React from 'react'
 import PurchasedCard from './PurchasedCard'
 
-const MyPurchases = ({user, myCards, rateSeller}) => {
+const MyPurchases = ({user, myCards, rateSeller, prevPurchases}) => {
     let cards = []
-    for (let i = 0; i < myCards.length; i++) {
+    for (let i = 0; i < prevPurchases.length; i++) {
         const card = <PurchasedCard header={
-                myCards[i][1]
+            prevPurchases[i][1]
             }
             content={
-                myCards[i][2]
+                prevPurchases[i][2]
             }
             rateSeller={
-                () => rateSeller(myCards[i].owner)
+                () => rateSeller(prevPurchases[i].owner)
             }
-            userRate={myCards[i].ownerRate}/>
+            userRate={prevPurchases[i].ownerRate}/>
         cards.push(card)
     }
     return (

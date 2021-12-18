@@ -6,7 +6,7 @@ import MyPurchases from './MyPurchases';
 
 const MyStatus = ({allCards}) => {
 
-    const {user, rateSeller, buyOffer} = useContext(accountContext)
+    const {user, rateSeller, buyOffer, prevPurchases} = useContext(accountContext)
 
     const userAddress = user.owner
     const allCardsLen = allCards ? allCards.length : 0
@@ -35,7 +35,7 @@ const MyStatus = ({allCards}) => {
                 </div>
                 <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div className="fill-window">
-                        <MyPurchases user={user} myCards={myCards} rateSeller={rateSeller}/>
+                        <MyPurchases user={user} myCards={myCards} rateSeller={rateSeller} prevPurchases={prevPurchases}/>
                     </div>
                 </div>
             </div>
