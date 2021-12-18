@@ -2,7 +2,7 @@ import React from 'react'
 import { BiLike } from "react-icons/bi";
 import Card from '../card/Card'
 
-const MyProfile = ({ user, myCards, buyOffer}) => {
+const MyProfile = ({ user, myCards, buyOffer, prevPurchasesLen}) => {
 
     let cards = []
     let soldCount = 0
@@ -32,7 +32,7 @@ const MyProfile = ({ user, myCards, buyOffer}) => {
                         </li>
                         <li className="list-group-item bg-dark border-info text-info"><strong>You have sold {soldCount} services!</strong>
                         <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike></li>
-                        <li className="list-group-item bg-dark border-info text-info"><strong>You have purchased XX services!</strong>
+                        <li className="list-group-item bg-dark border-info text-info"><strong>You have purchased {prevPurchasesLen} services!</strong>
                         <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike></li>
                         <li className="list-group-item bg-dark border-info text-info"><strong>Your user rating is {user.rate}!</strong>
                         <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike></li>

@@ -133,13 +133,29 @@ contract GiveNTake {
         usersByAddress[_sellerAddress].rate++;
         User memory _user =  usersByAddress[_sellerAddress];
         users[_user.id].rate++;   // update the user in the second array as well
+
+        // for each 5 times rating others, user earns a rate for himself
+        uint flag = 0;
+        User memory rater = usersByAddress[msg.sender];
+        if (rater.ratingCount % 3 == 0) {
+          rater.rate++;
+          flag = 1;
+        }
+        rater.ratingCount++;
+        usersByAddress[msg.sender] = rater;
+        users[rater.id] = rater;
         
+        // update all their cards
         uint i = 1;
         for (i=1; i<=cardsCount; i++) {
           if (cards[i].owner == _sellerAddress) {
               cards[i].ownerRate++;
           }
+          if (flag == 1 && cards[i].owner == msg.sender) {
+              cards[i].ownerRate++;
+          }
         }
+
         emit UserRated(_sellerAddress, _user.name, _user.rate);
     }
   function deleteCard(uint id) public {

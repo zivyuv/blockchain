@@ -5,7 +5,7 @@ import {ButtonGroup} from 'react-bootstrap';
 import {BsFillStarFill} from "react-icons/bs";
 
 
-const PurchasedCard = ({header, content, rateSeller, userRate}) => { // const strPrice = "Buy" + price
+const PurchasedCard = ({header, content, rateSeller, ownerRate}) => { // const strPrice = "Buy" + price
     return (
         <div className="card border-info bg-dark mb-4"
             style={
@@ -17,13 +17,6 @@ const PurchasedCard = ({header, content, rateSeller, userRate}) => { // const st
                         {textAlign: "center"}
                 }>
                     {header}
-                    <Badge badgeContent={userRate}
-                        color="secondary"
-                        style={
-                            {float: "right"}
-                    }>
-                        <BsFillStarFill/>
-                    </Badge>
                 </h5>
             </div>
             <div className="card-body text-info">
