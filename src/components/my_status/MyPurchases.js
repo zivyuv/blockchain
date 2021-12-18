@@ -2,7 +2,7 @@ import {array} from 'fast-check'
 import React from 'react'
 import { BiLike } from "react-icons/bi";
 
-const MyPurchases = () => {
+const MyPurchases = ({user, myCards}) => {
 
     const userDataStr = window.localStorage.getItem("UsersMap")
     userDataStr.replace('[', '{').replace(']', '}')

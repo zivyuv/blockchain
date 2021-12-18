@@ -1,4 +1,5 @@
 pragma solidity ^0.5.0;
+pragma experimental ABIEncoderV2;
 
 contract GiveNTake {
   //string public name;
@@ -86,13 +87,12 @@ contract GiveNTake {
 
         emit CardCreated(cardsCount, _headline, _content, _price, 0, msg.sender, 1);
     }
-  function add_cardToUser(User memory currUser, Card memory currCard) private{
-        uint curr_amount = currUser.cardAmount;
+  function add_cardToUser(User memory currUser, Card memory currCard) public{
         //add card to user card list
         users[currUser.id].mycards.push(currCard.id);
         
         //currUser.my_cards[curr_amount] = currCard;
-        currUser.cardAmount = curr_amount+1;
+        currUser.cardAmount++;
     }
   function buyOffer(uint _cardId) public payable {
         require(_cardId > 0 && _cardId <= cardsCount);
@@ -107,7 +107,7 @@ contract GiveNTake {
         emit CardBought(cardsCount, _card.headline, _card.content, _card.price, _card.soldCount, msg.sender);
 
     }
-  function rateSeller(uint _sellerId) private {
+  function rateSeller(uint _sellerId) public {
         require(_sellerId > 0 && _sellerId <= usersCount);
       
         // perhaps add that I can only rate a user once

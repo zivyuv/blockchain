@@ -6,7 +6,7 @@ const Home = ({usersCount, cardsCount}) => {
         <div className={HomeStyle.container}>
             <h1><strong> Welcome To Our Store</strong></h1>
             <h2>We currently have {usersCount} users!</h2>
-            <h2>We currently have {cardsCount} offers awaiting!</h2>
+            <h2>We currently have {cardsCount} services awaiting!</h2>
             <h5 style={{marginTop: "1rem"}}>If you want to join our market place - you must have a Metamask account!</h5>
             <a href="https://metamask.io/">Open an account at Metamask</a>
             <h6 style={{marginTop: "1.5rem"}}>If you already have one....</h6>

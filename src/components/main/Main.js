@@ -11,6 +11,7 @@ import AuthForm from "../auth/AuthForm";
 
 const Main = ({
     usersCount,
+    cardsCount, 
     giveNTake,
     cards,
     postOffer,
@@ -27,13 +28,13 @@ const Main = ({
                     <Redirect to='/welcome'/>
                 </Route>
                 <Route path='/welcome'>
-                    <Home usersCount={usersCount}/>
+                    <Home cardsCount={cardsCount} usersCount={usersCount}/>
                 </Route>
                 <Route path='/new-card'>
                     <NewCard postOffer={postOffer}/>
                 </Route>
                 <Route path='/my-status'>
-                    <MyStatus user={user}/>
+                    <MyStatus allCards={cards}/>
                 </Route>
                 <Route path='/explore'>
                     <Explore user={user}
