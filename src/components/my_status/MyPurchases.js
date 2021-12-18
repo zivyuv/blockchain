@@ -12,7 +12,8 @@ const MyPurchases = ({user, myCards, rateSeller}) => {
             }
             rateSeller={
                 () => rateSeller(myCards[i].owner)
-            }/>
+            }
+            userRate={myCards[i].ownerRate}/>
         cards.push(card)
     }
     return (

@@ -5,7 +5,7 @@ import {ButtonGroup} from 'react-bootstrap';
 import {BsFillStarFill} from "react-icons/bs";
 
 
-const PurchasedCard = ({header, content, rateSeller}) => { // const strPrice = "Buy" + price
+const PurchasedCard = ({header, content, rateSeller, userRate}) => { // const strPrice = "Buy" + price
     return (
         <div className="card border-info bg-dark mb-4"
             style={
@@ -17,7 +17,7 @@ const PurchasedCard = ({header, content, rateSeller}) => { // const strPrice = "
                         {textAlign: "center"}
                 }>
                     {header}
-                    <Badge badgeContent={1}
+                    <Badge badgeContent={userRate}
                         color="secondary"
                         style={
                             {float: "right"}
@@ -37,12 +37,7 @@ const PurchasedCard = ({header, content, rateSeller}) => { // const strPrice = "
                 }>
                     {content}</p>
                 {/* //if soldcount = 0, should say "Be the first to recieve this service " */}
-                <p className="card-text"
-                    style={
-                        {textAlign: "center"}
-                }>
-                    This service was given xxENTER SOLDCOUNTxx times.
-                </p>
+
             </div>
             {/* <ButtonGroup aria-label="Basic example">
                 <Button variant="info"style={{marginBottom: "1rem", textAlign: "center"}}>Buy for {price}$</Button>

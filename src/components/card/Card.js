@@ -15,6 +15,7 @@ const Card = ({
     sentence
 }) => { // const strPrice = "Buy" + price
 
+    const _sentence = sentence ? sentence : ""
     return (
         <div className="card border-info bg-dark mb-4"
             style={
@@ -55,7 +56,7 @@ const Card = ({
                     style={
                         {textAlign: "center"}
                 }>
-                    {sentence}
+                    {_sentence}
                 </p>
             </div>
             {/* <ButtonGroup aria-label="Basic example">

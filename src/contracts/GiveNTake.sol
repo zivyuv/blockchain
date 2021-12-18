@@ -94,6 +94,7 @@ contract GiveNTake {
         uint [] storage mycards = users[currUserId].mycards;
         mycards.push(currCard.id);
         users[currUserId].mycards = mycards;
+        usersByAddress[users[currUserId].owner].mycards.push(currCard.id);
 
         
         //currUser.my_cards[curr_amount] = currCard;
@@ -116,9 +117,9 @@ contract GiveNTake {
         // require(_sellerId > 0 && _sellerId <= usersCount);
       
         // perhaps add that I can only rate a user once
+        usersByAddress[_sellerAddress].rate++;
         User memory _user =  usersByAddress[_sellerAddress];
-        _user.rate ++;
-        usersByAddress[_sellerAddress] = _user;
+        users[_user.id].rate++;   // update the user in the second array as well
         
         uint i = 1;
         for (i=1; i<=cardsCount; i++) {

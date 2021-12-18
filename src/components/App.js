@@ -70,6 +70,7 @@ class App extends Component {
                             user
                         ]
                     })
+                    console.log(user)
                     if (user.owner == this.state.account) {
                         this.setState({user: user})
                     }
