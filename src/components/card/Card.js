@@ -11,7 +11,8 @@ const Card = ({
     content,
     price,
     buyHandler,
-    ownerRate
+    ownerRate,
+    sentence
 }) => { // const strPrice = "Buy" + price
 
     return (
@@ -25,13 +26,16 @@ const Card = ({
                         {textAlign: "center"}
                 }>
                     {header}
-                    <Badge badgeContent={ownerRate}
-                        color="secondary"
-                        style={
-                            {float: "right"}
-                    }>
-                        <BsFillStarFill/>
-                    </Badge>
+                    <div className='d-inline-block' style={
+                                {float: "right"}
+                        } data-toggle="tooltip" title="Seller's rate" tabindex="0">
+                        <Badge badgeContent={ownerRate}
+                            color="secondary"
+                            >
+                            <BsFillStarFill/>
+                        </Badge>
+
+                    </div>
 
                 </h5>
 
@@ -51,7 +55,7 @@ const Card = ({
                     style={
                         {textAlign: "center"}
                 }>
-                    This service was given xxENTER SOLDCOUNTxx times.
+                    {sentence}
                 </p>
             </div>
             {/* <ButtonGroup aria-label="Basic example">
@@ -78,7 +82,6 @@ const Card = ({
                             marginRight: "3rem"
                         }
                 }>Check Out Profile</button>
-                <button className="button" className="btn btn-light">Rate Seller</button>
 
             </div>
         </div>

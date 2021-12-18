@@ -5,12 +5,14 @@ import Card from '../card/Card'
 
 const ETHVALUE = 4000 // about 4000 dollars
 const Explore = ({user, contractCards, buyOffer, giveNTake}) => {
-
+    console.log(user)
     let cards = []
     for (let i = 0; i < contractCards.length; i++) {
         const ethPrice = parseInt(contractCards[i][3]) / ETHVALUE
         const priceToPay = window.web3.utils.toWei(ethPrice.toString(), 'Ether')
         const ownerRate = contractCards[i].ownerRate
+        const soldCount = contractCards[i][4]
+        const sentence = soldCount > 0 ? "This service was given " + soldCount + " times." : "Be the first to buy this service!"
         console.log(ownerRate)
         console.log(contractCards[i])
         console.log(user)
@@ -23,9 +25,7 @@ const Explore = ({user, contractCards, buyOffer, giveNTake}) => {
             price={
                 contractCards[i][3]
             }
-            soldCount={
-                contractCards[i][4]
-            }
+            sentence={sentence}
             buyHandler={
                 () => buyOffer(contractCards[i][0], priceToPay)
             }

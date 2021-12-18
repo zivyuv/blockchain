@@ -85,16 +85,19 @@ contract GiveNTake {
         User memory curr_user = usersByAddress[msg.sender];
       
         //add new card to user list
-        add_cardToUser(curr_user, cards[cardsCount]);
+        add_cardToUser(curr_user.id, cards[cardsCount]);
 
         emit CardCreated(cardsCount, _headline, _content, _price, 0, msg.sender, 1);
     }
-  function add_cardToUser(User memory currUser, Card memory currCard) private{
+  function add_cardToUser(uint currUserId, Card memory currCard) private{
         //add card to user card list
-        users[currUser.id].mycards.push(currCard.id);
+        uint [] storage mycards = users[currUserId].mycards;
+        mycards.push(currCard.id);
+        users[currUserId].mycards = mycards;
+
         
         //currUser.my_cards[curr_amount] = currCard;
-        currUser.cardAmount++;
+        users[currUserId].cardAmount++;
     }
   function buyOffer(uint _cardId) public payable {
         require(_cardId > 0 && _cardId <= cardsCount);
