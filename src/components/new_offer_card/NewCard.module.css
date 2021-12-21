@@ -1,6 +1,19 @@
 .container {
   margin: 2rem auto;
+  
   width: 50%;
+  position:relative;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  text-align: center;
+  background-color: #f2f2f2;
+}
+
+.container1 {
+  margin: 2rem auto;
+  
+  width: 100%;
   position:relative;
   border-radius: 10px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
@@ -34,7 +47,7 @@
 
 .container input[type=submit] {
   width: 100%;
-  background-color: #4CAF50;
+  background-color: rgb(21, 141, 189);
   color: white;
   padding: 14px 20px;
   margin: 7px 0;
@@ -44,5 +57,5 @@
 }
 
 .container input[type=submit]:hover {
-  background-color: #45a049;
+  background-color: #456fa0;
 }

@@ -1,11 +1,12 @@
 import React from 'react';
+import Explore from "../explore/Explore";
 import Badge from '@material-ui/core/Badge';
-import {Button} from 'react-bootstrap';
-import {ButtonGroup} from 'react-bootstrap';
 import {BsFillStarFill} from "react-icons/bs";
 
 
-const PurchasedCard = ({header, content, rateSeller, ownerRate}) => { // const strPrice = "Buy" + price
+const PurchasedCard = ({header, content, rateSeller, sentence}) => { // const strPrice = "Buy" + price
+    
+    const _sentence = sentence ? sentence : ""
     return (
         <div className="card border-info bg-dark mb-4"
             style={
@@ -17,6 +18,13 @@ const PurchasedCard = ({header, content, rateSeller, ownerRate}) => { // const s
                         {textAlign: "center"}
                 }>
                     {header}
+                    <Badge
+                        color="secondary"
+                        style={
+                            {float: "right"}
+                    }>
+                        <BsFillStarFill/>
+                    </Badge>
                 </h5>
             </div>
             <div className="card-body text-info">
@@ -29,23 +37,18 @@ const PurchasedCard = ({header, content, rateSeller, ownerRate}) => { // const s
                         {textAlign: "center"}
                 }>
                     {content}</p>
-                {/* //if soldcount = 0, should say "Be the first to recieve this service " */}
-
-            </div>
-            {/* <ButtonGroup aria-label="Basic example">
-                <Button variant="info"style={{marginBottom: "1rem", textAlign: "center"}}>Buy for {price}$</Button>
-                <Button variant="light"style={{marginBottom: "1rem",textAlign: "center"}}>Rate Seller</Button>
-                </ButtonGroup> */}
-            <div className="card-footer bg-dark border-info ">
-
-                <button className="button" className="btn btn-light"
+                <p className="card-text"
                     style={
-                        {
-                            marginLeft: "3rem",
-                            marginRight: "3rem"
-                        }
-                }>Check Out Profile</button>
-                <button className="button" className="btn btn-light" onClick={rateSeller}>Rate Seller</button>
+                        {textAlign: "center"}
+                }>
+                     {_sentence}
+                </p>
+            </div>
+
+            <div className="card-footer bg-dark border-info "style = {{textAlign: "center"}}>
+            <button className="button" className="btn btn-light" onClick={rateSeller}>Rate Seller</button>
+
+            {/* <button style = {{}}onClick={()=>{ alert('SOME MESSAGE'); }}>Report Seller</button> */}
 
             </div>
         </div>

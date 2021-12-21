@@ -1,4 +1,5 @@
 import Home from "../home/Home";
+import HomeStyle from '../home/Home.module.css'
 import NewCard from "../new_offer_card/NewCard";
 import MyStatus from "../my_status/MyStatus";
 import Card from "../card/Card";
@@ -11,6 +12,7 @@ import AuthForm from "../auth/AuthForm";
 
 const Main = ({
     usersCount,
+    cardsCount, 
     giveNTake,
     cards,
     postOffer,
@@ -27,7 +29,7 @@ const Main = ({
                     <Redirect to='/welcome'/>
                 </Route>
                 <Route path='/welcome'>
-                    <Home usersCount={usersCount}/>
+                    <Home cardsCount={cardsCount} usersCount={usersCount}/>
                 </Route>
                 <Route path='/new-card'>
                     <NewCard postOffer={postOffer}/>
@@ -53,21 +55,22 @@ const Main = ({
         return (
             <Switch>
                 <Route path='/welcome' exact>
-                    <div className="card text-center mt-5">
-                        <div className="card-header ">
-                            <h1>Hey there!!</h1>
-                        </div>
-                        <div className="card-body">
-                            <h5 className="card-title">Nice to meet you, account number <br/> </h5>
-                            <p>{account}</p>
-                            <p className="card-text">Before we get started, please tell us your name:</p>
+                <div className={HomeStyle.container}>
+                    {/* <div className="card text-center mt-5"> */}
+                        {/* <div className="card-header text-info"> */}
+                            <h1 className="text-info"><strong>Hey there!!</strong></h1>
+                        {/* </div> */}
+                        {/* <div className="card-body"> */}
+                            <h5 className="text-info">Nice to meet you, account number <br/> </h5>
+                            <p className="text-light">{account}</p>
+                            <p className="text-info">Before we get started, please tell us your name:</p>
                             <form onSubmit={submitHabdler}>
                                 <input className="form-group mx-sm-3 mb-2" type="text" placeholder="Enter name..."  required ref={userNameRef}/>
                                 <input className="btn btn-dark" type="submit" value="Sign Up"></input>
                             </form>
-                        </div>
-                        <div className="card-footer">
-                        </div>
+                        {/* </div> */}
+                        {/* <div className="card-footer"> */}
+                        {/* </div> */}
                     </div>
                 </Route>
                 <Route path='/'>

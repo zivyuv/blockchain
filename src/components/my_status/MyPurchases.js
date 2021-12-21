@@ -1,6 +1,16 @@
 import React from 'react'
 import PurchasedCard from './PurchasedCard'
 
+const arrayChunk = (arr, n) => {
+    const array = arr.slice();
+    const chunks = [];
+    while (array.length) 
+        chunks.push(array.splice(0, n));
+    
+
+
+    return chunks;
+};
 const MyPurchases = ({rateSeller, prevPurchases}) => {
     let cards = []
     for (let i = 0; i < prevPurchases.length; i++) {
@@ -23,12 +33,18 @@ const MyPurchases = ({rateSeller, prevPurchases}) => {
                 <h5>
                     <strong>You can reflect back on recent purchases and rate their sellers!</strong>
                 </h5>
-                <div className='container'> {
-                    cards.map((card) => (
+                <div className="container">
+            {
+            arrayChunk(cards, 2).map((row, i) => (
+                <div className="row">
+                    {
+                    row.map((col, i) => (
                         <div className="col">
-                            {card}</div>
+                            {col}</div>
                     ))
                 } </div>
+            ))
+        } </div>
             </div>
 
         </div>

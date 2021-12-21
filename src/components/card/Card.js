@@ -12,10 +12,12 @@ const Card = ({
     price,
     buyHandler,
     ownerRate,
-    sentence
+    sentence,
+    dontShowButtons
 }) => { // const strPrice = "Buy" + price
 
     const _sentence = sentence ? sentence : ""
+    const _showButtons = dontShowButtons ? false : true
     return (
         <div className="card border-info bg-dark mb-4"
             style={
@@ -51,7 +53,7 @@ const Card = ({
                         {textAlign: "center"}
                 }>
                     {content}</p>
-                {/* //if soldcount = 0, should say "Be the first to recieve this service " */}
+            
                 <p className="card-text"
                     style={
                         {textAlign: "center"}
@@ -59,10 +61,7 @@ const Card = ({
                     {_sentence}
                 </p>
             </div>
-            {/* <ButtonGroup aria-label="Basic example">
-                <Button variant="info"style={{marginBottom: "1rem", textAlign: "center"}}>Buy for {price}$</Button>
-                <Button variant="light"style={{marginBottom: "1rem",textAlign: "center"}}>Rate Seller</Button>
-                </ButtonGroup> */}
+
             <button className="btn btn-info"
                 style={
                     {
@@ -72,20 +71,29 @@ const Card = ({
                     }
                 }
                 onClick={buyHandler}>Buy for {price}$</button>
-            {/* <button className="btn btn-light" style={{marginBottom: "1rem", marginLeft: "3rem", marginRight: "3rem"}}>Rate Seller</button> */}
-            {/* <button className="button" className="btn btn-light"style={{marginLeft: "3rem", marginRight: "3rem"}}>Check Out Profile</button> */}
-            <div className="card-footer bg-dark border-info ">
+            
+    {_showButtons &&    <div className="card-footer bg-dark border-info " style = {{textAlign: "center"}}>
 
-                <button className="button" className="btn btn-light"
-                    style={
-                        {
-                            marginLeft: "3rem",
-                            marginRight: "3rem"
-                        }
-                }>Check Out Profile</button>
+            {/* <button className="button" className="btn btn-light"
+                style={
+                    {
+                        marginLeft: "3rem",
+                        marginRight: "3rem"
+                    }
+            }>Check Out Profile</button> */}
 
-            </div>
+            {/* <button className="button" className="btn btn-light"
+                style={
+                    {
+                        marginLeft: "3rem",
+                        marginRight: "3rem"
+                    }
+            }>Rate Seller</button> */}
+            
+        </div>}
         </div>
+        
+      
     );
 }
 
