@@ -39,7 +39,8 @@ const Main = ({
                 <Route path='/explore'>
                     <Explore user={user}
                         contractCards={cards}
-                        buyOffer={buyOffer}/>
+                        buyOffer={buyOffer}
+                        giveNTake={giveNTake}/>
                 </Route>
 
             </Switch>

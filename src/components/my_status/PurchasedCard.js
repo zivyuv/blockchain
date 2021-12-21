@@ -1,4 +1,3 @@
-import CardStyle from './Card.module.css'
 import React from 'react';
 import Badge from '@material-ui/core/Badge';
 import {Button} from 'react-bootstrap';
@@ -6,14 +5,7 @@ import {ButtonGroup} from 'react-bootstrap';
 import {BsFillStarFill} from "react-icons/bs";
 
 
-const Card = ({
-    header,
-    content,
-    price,
-    buyHandler,
-    ownerRate
-}) => { // const strPrice = "Buy" + price
-
+const PurchasedCard = ({header, content, rateSeller, ownerRate}) => { // const strPrice = "Buy" + price
     return (
         <div className="card border-info bg-dark mb-4"
             style={
@@ -32,9 +24,7 @@ const Card = ({
                     }>
                         <BsFillStarFill/>
                     </Badge>
-
                 </h5>
-
             </div>
             <div className="card-body text-info">
                 <h5 className="card-title text-light bg-dark"
@@ -54,35 +44,17 @@ const Card = ({
                     This service was given xxENTER SOLDCOUNTxx times.
                 </p>
             </div>
+            {/* <ButtonGroup aria-label="Basic example">
+                <Button variant="info"style={{marginBottom: "1rem", textAlign: "center"}}>Buy for {price}$</Button>
+                <Button variant="light"style={{marginBottom: "1rem",textAlign: "center"}}>Rate Seller</Button>
+                </ButtonGroup> */}
+            <div className="card-footer bg-dark border-info ">
 
-            <button className="btn btn-info"
-                style={
-                    {
-                        marginBottom: "1rem", // dump note
-                        marginLeft: "3rem",
-                        marginRight: "3rem"
-                    }
-                }
-                onClick={buyHandler}>Buy for {price}$</button>
-            
-            <div className="card-footer bg-dark border-info "
-            //  style={
-            //             {
-            //                 marginLeft: "3rem",
-            //                 marginRight: "3rem"
-            //             }
-            //     }
-                >
-        
-            <div class= "center-block text-center">
-            
-                <button className="button" className="btn btn-light">Check Out Profile</button>
-                <button className="button" className="btn btn-light">Rate Seller</button>
-                </div>
+                <button className="button" className="btn btn-light" style={{alignSelf: "center"}}>Report Seller</button>
+
+            </div>
         </div>
-        </div>
-      
     );
 }
 
-export default Card;
+export default PurchasedCard;

@@ -5,7 +5,6 @@ contract GiveNTake {
   //string public name;
   uint public usersCount = 0;
   uint public cardsCount = 0;
-  uint card_amount = 0;
   
 
   struct User {
@@ -15,6 +14,7 @@ contract GiveNTake {
     address owner;
     uint cardAmount;
     uint[] mycards;
+    uint ratingCount;
   }
 
   struct Card {
@@ -24,6 +24,7 @@ contract GiveNTake {
         uint price;
         uint soldCount;
         address payable owner;
+        uint ownerRate;  
         uint isActive;
     }
 
@@ -53,7 +54,7 @@ contract GiveNTake {
     );
 
   event UserRated(
-        uint id,
+        address userAddress,
         string name,
         uint rate
     );
@@ -61,6 +62,7 @@ contract GiveNTake {
     mapping(uint => User) public users;
     mapping(uint => Card) public cards;
     mapping (address => User) public usersByAddress;
+    
 
   constructor() public {
     //name = "Decentragram";
@@ -70,8 +72,9 @@ contract GiveNTake {
   function addUser(string memory _name) public {
     // Increment image id
     usersCount ++;
+  
     uint[] memory my_cards;
-    users[usersCount] = User(usersCount, _name, 0, msg.sender,0, my_cards);
+    users[usersCount] = User(usersCount, _name, 0, msg.sender,0, my_cards, 0);
     usersByAddress[msg.sender] = users[usersCount];
 
     emit UserAdded(usersCount, _name, msg.sender);
@@ -79,7 +82,9 @@ contract GiveNTake {
 
   function postOffer(string memory _headline, string memory _content, uint _price) public {
         cardsCount ++;
-        cards[cardsCount] = Card(cardsCount, _headline, _content, _price, 0, msg.sender, 1);
+        User memory _owner = usersByAddress[msg.sender];
+        uint rate = _owner.rate;
+        cards[cardsCount] = Card(cardsCount, _headline, _content, _price, 0, msg.sender,rate, 1);
         User memory curr_user = usersByAddress[msg.sender];
       
         //add new card to user list
@@ -107,15 +112,21 @@ contract GiveNTake {
         emit CardBought(cardsCount, _card.headline, _card.content, _card.price, _card.soldCount, msg.sender);
 
     }
-  function rateSeller(uint _sellerId) public {
-        require(_sellerId > 0 && _sellerId <= usersCount);
+  function rateSeller(address _sellerAddress) public {
+        // require(_sellerId > 0 && _sellerId <= usersCount);
       
         // perhaps add that I can only rate a user once
-        User memory _user =  users[_sellerId];
+        User memory _user =  usersByAddress[_sellerAddress];
         _user.rate ++;
-        users[_sellerId] = _user;
-
-        emit UserRated(_sellerId, _user.name, _user.rate);
+        usersByAddress[_sellerAddress] = _user;
+        
+        uint i = 1;
+        for (i=1; i<=cardsCount; i++) {
+          if (cards[i].owner == _sellerAddress) {
+              cards[i].ownerRate++;
+          }
+        }
+        emit UserRated(_sellerAddress, _user.name, _user.rate);
     }
   function deleteCard(uint id) public {
       Card storage toDelete = cards[id];

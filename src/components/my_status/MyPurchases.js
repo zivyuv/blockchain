@@ -1,34 +1,56 @@
-import {array} from 'fast-check'
 import React from 'react'
-import { BiLike } from "react-icons/bi";
+import PurchasedCard from './PurchasedCard'
 
-const MyPurchases = ({user, myCards}) => {
+const arrayChunk = (arr, n) => {
+    const array = arr.slice();
+    const chunks = [];
+    while (array.length) 
+        chunks.push(array.splice(0, n));
+    
 
-    const userDataStr = window.localStorage.getItem("UsersMap")
-    userDataStr.replace('[', '{').replace(']', '}')
-    const usersData = JSON.parse(userDataStr)
-    const currUser = window.localStorage.getItem("loggedIn")
-    let i = 0;
-    let userId = ""
-    while (true) {
-        if (usersData[i].userName == currUser) {
-            userId = usersData[i].userId
-            break;
-        }
-        i++;
+
+    return chunks;
+};
+const MyPurchases = ({user, myCards, rateSeller}) => {
+    let cards = []
+    for (let i = 0; i < myCards.length; i++) {
+        const card = <PurchasedCard header={
+                myCards[i][1]
+            }
+            content={
+                myCards[i][2]
+            }
+            rateSeller={
+                () => rateSeller(myCards[i].owner)
+            }/>
+        cards.push(card)
     }
     return (
         <div className="fill-window">
-              <div className="card-header bg-light border-info text-info" >
-              <h1>My Previous Purchases</h1>
-            <h5><strong>You can reflect back on recent purchases and rate their sellers!</strong></h5>
-                </div>
-
+            <div className="card-header bg-light border-info text-info">
+                <h1>My Previous Purchases</h1>
+                <h5>
+                    <strong>You can reflect back on recent purchases and rate their sellers!</strong>
+                </h5>
+                <div className="container">
+            {
+            arrayChunk(cards, 2).map((row, i) => (
+                <div className="row">
+                    {
+                    row.map((col, i) => (
+                        <div className="col">
+                            {col}</div>
+                    ))
+                } </div>
+            ))
+        } </div>
             </div>
-           
-      
+
+        </div>
+
+
     );
 }
-    
+
 
 export default MyPurchases;

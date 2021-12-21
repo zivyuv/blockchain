@@ -108,10 +108,18 @@ class App extends Component {
     async buyOffer(cardId, price) {
         this.setState({loading: true})
         this.state.giveNTake.methods.buyOffer(cardId).send({from: this.state.account, value: price}).on('transactionHash', (hash) => {
+            window.location.reload(false)
             this.setState({loading: false})
         })
     }
 
+    async rateSeller(sellerId) {
+        this.setState({loading: true})
+        this.state.giveNTake.methods.rateSeller(sellerId).send({from: this.state.account}).on('transactionHash', (hash) => {
+            window.location.reload(false)
+            this.setState({loading: false})
+        })
+    }
 
     constructor(props) {
         super(props)
@@ -129,6 +137,7 @@ class App extends Component {
         this.addUser = this.addUser.bind(this)
         this.postOffer = this.postOffer.bind(this)
         this.buyOffer = this.buyOffer.bind(this)
+        this.rateSeller = this.rateSeller.bind(this)
 
     }
 
@@ -150,9 +159,11 @@ class App extends Component {
         const addUser = this.addUser
         const postOffer = this.postOffer
         const buyOffer = this.buyOffer
+        const rateSeller = this.rateSeller
+
         return (
             <accountContext.Provider value={
-                {account, user, addUser}
+                {account, user, addUser, rateSeller, buyOffer}
             }>
                 <div style={
                     {
