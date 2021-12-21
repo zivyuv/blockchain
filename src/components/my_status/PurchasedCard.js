@@ -18,13 +18,6 @@ const PurchasedCard = ({header, content, rateSeller, sentence}) => { // const st
                         {textAlign: "center"}
                 }>
                     {header}
-                    <Badge
-                        color="secondary"
-                        style={
-                            {float: "right"}
-                    }>
-                        <BsFillStarFill/>
-                    </Badge>
                 </h5>
             </div>
             <div className="card-body text-info">
