@@ -9,3 +9,11 @@
   text-align: center;
   background-color: #383232;
 }
+
+.content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}

@@ -13,6 +13,8 @@ const Explore = ({user, contractCards, buyOffer, giveNTake}) => {
         const ethPrice = parseInt(contractCards[i][3]) / ETHVALUE
         const priceToPay = window.web3.utils.toWei(ethPrice.toString(), 'Ether')
         const ownerRate = contractCards[i].ownerRate
+        const soldCount = contractCards[i][4]
+        const sentence = soldCount > 0 ? "This service was given " + soldCount + " times." : "Be the first to buy this service!"
         console.log(ownerRate)
         console.log(contractCards[i])
         console.log(user)
@@ -25,9 +27,7 @@ const Explore = ({user, contractCards, buyOffer, giveNTake}) => {
             price={
                 contractCards[i][3]
             }
-            soldCount={
-                contractCards[i][4]
-            }
+            sentence={sentence}
             buyHandler={
                 () => buyOffer(contractCards[i][0], priceToPay)
             }
@@ -49,13 +49,13 @@ const Explore = ({user, contractCards, buyOffer, giveNTake}) => {
     if (cards.length == 0) {
         return (
             <div className={CardStyle.container}>
-            <div className="text-center text-info mt-5">
-                <div className="">
+            <div className="text-center text-info mt-5" style={{marginTop: "3rem"}} >
+                {/* <div className="" > */}
                     <h1>Hey there!!</h1>
                     <h4>There are currently no services available.</h4>
                     <h4>Be the first one to offer your service, by clicking the <strong>'New Offer'</strong> button above!</h4>
                     </div>
-                </div>
+                {/* </div> */}
             </div>
         );
     }

@@ -4,8 +4,6 @@ import './App.css';
 import GiveNTake from '../abis/GiveNTake.json'
 import Navbar from './navbar/Navbar'
 import Main from './main/Main'
-import NewCard from './new_offer_card/NewCard';
-import MyStatus from './my_status/MyStatus';
 import {accountContext} from './AccountContext';
 
 class App extends Component {
@@ -70,17 +68,38 @@ class App extends Component {
                             user
                         ]
                     })
+                    console.log(user)
                     if (user.owner == this.state.account) {
                         this.setState({user: user})
                     }
                 }
+
+                if (this.state.user) { // prevPurchases
+                    const transactionsCount = await giveNTake.methods.transactionsCount().call()
+                    for (var i = 1; i <= transactionsCount; i++) {
+                        const transaction = await giveNTake.methods.transactions(i).call()
+                        if (transaction.buyer.id == this.state.user.id) {
+                            this.setState({
+                                prevPurchases: [
+                                    ...this.state.prevPurchases,
+                                    transaction.card
+                                ]
+                            })
+                        }
+                    }
+
+
+                }
+
                 this.setState({loading: false})
 
-                // Sort images. Show highest rate cards first
+                // Sort cards. Show highest rate cards first
 
-                // this.setState({
-                // cards: this.state.cards.sort((a,b) => b.rate - a.rate )
-                // })
+                this.setState({
+                    cards: this.state.cards.sort(
+                        (a, b) => b.ownerRate - a.ownerRate
+                    )
+                })
             } else {
                 window.alert('SimpleStorage contract not deployed to detected network.')
             }
@@ -126,6 +145,7 @@ class App extends Component {
         this.state = {
             account: '',
             user: null,
+            prevPurchases: [],
             giveNTake: null,
             cards: [],
             users: [],
@@ -155,6 +175,7 @@ class App extends Component {
         }
         const account = this.state.account
         const user = this.state.user
+        const prevPurchases = this.state.prevPurchases
         const cards = this.state.cards
         const addUser = this.addUser
         const postOffer = this.postOffer
@@ -163,7 +184,14 @@ class App extends Component {
 
         return (
             <accountContext.Provider value={
-                {account, user, addUser, rateSeller, buyOffer}
+                {
+                    account,
+                    user,
+                    addUser,
+                    rateSeller,
+                    buyOffer,
+                    prevPurchases
+                }
             }>
                 <div style={
                     {
@@ -175,8 +203,7 @@ class App extends Component {
                     this.state.loading ? <div id="loader" className="text-center mt-5">
                         <p>Loading...</p>
                     </div> : <div>
-                        <Main 
-                            cards={cards}
+                        <Main cards={cards}
                             usersCount={
                                 this.state.usersCount
                             }

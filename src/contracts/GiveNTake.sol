@@ -5,6 +5,7 @@ contract GiveNTake {
   //string public name;
   uint public usersCount = 0;
   uint public cardsCount = 0;
+  uint public transactionsCount = 0;
   
 
   struct User {
@@ -27,6 +28,11 @@ contract GiveNTake {
         uint ownerRate;  
         uint isActive;
     }
+
+  struct Transaction {
+    User buyer;
+    Card card;
+  }
 
   event UserAdded(
     uint id,
@@ -59,6 +65,7 @@ contract GiveNTake {
         uint rate
     );
 
+    mapping (uint => Transaction) public transactions;
     mapping(uint => User) public users;
     mapping(uint => Card) public cards;
     mapping (address => User) public usersByAddress;
@@ -88,16 +95,20 @@ contract GiveNTake {
         User memory curr_user = usersByAddress[msg.sender];
       
         //add new card to user list
-        add_cardToUser(curr_user, cards[cardsCount]);
+        add_cardToUser(curr_user.id, cards[cardsCount]);
 
         emit CardCreated(cardsCount, _headline, _content, _price, 0, msg.sender, 1);
     }
-  function add_cardToUser(User memory currUser, Card memory currCard) public{
+  function add_cardToUser(uint currUserId, Card memory currCard) private{
         //add card to user card list
-        users[currUser.id].mycards.push(currCard.id);
+        uint [] storage mycards = users[currUserId].mycards;
+        mycards.push(currCard.id);
+        users[currUserId].mycards = mycards;
+        usersByAddress[users[currUserId].owner].mycards.push(currCard.id);
+
         
         //currUser.my_cards[curr_amount] = currCard;
-        currUser.cardAmount++;
+        users[currUserId].cardAmount++;
     }
   function buyOffer(uint _cardId) public payable {
         require(_cardId > 0 && _cardId <= cardsCount);
@@ -109,6 +120,11 @@ contract GiveNTake {
         _card.soldCount ++;
         cards[_cardId] = _card;     // update the card
 
+        // add transaction 
+        transactionsCount++;
+        User memory buyer = usersByAddress[msg.sender];
+        transactions[transactionsCount] = Transaction(buyer, _card);
+
         emit CardBought(cardsCount, _card.headline, _card.content, _card.price, _card.soldCount, msg.sender);
 
     }
@@ -116,16 +132,32 @@ contract GiveNTake {
         // require(_sellerId > 0 && _sellerId <= usersCount);
       
         // perhaps add that I can only rate a user once
+        usersByAddress[_sellerAddress].rate++;
         User memory _user =  usersByAddress[_sellerAddress];
-        _user.rate ++;
-        usersByAddress[_sellerAddress] = _user;
+        users[_user.id].rate++;   // update the user in the second array as well
+
+        // for each 5 times rating others, user earns a rate for himself
+        uint flag = 0;
+        User memory rater = usersByAddress[msg.sender];
+        if (rater.ratingCount % 3 == 0) {
+          rater.rate++;
+          flag = 1;
+        }
+        rater.ratingCount++;
+        usersByAddress[msg.sender] = rater;
+        users[rater.id] = rater;
         
+        // update all their cards
         uint i = 1;
         for (i=1; i<=cardsCount; i++) {
           if (cards[i].owner == _sellerAddress) {
               cards[i].ownerRate++;
           }
+          if (flag == 1 && cards[i].owner == msg.sender) {
+              cards[i].ownerRate++;
+          }
         }
+
         emit UserRated(_sellerAddress, _user.name, _user.rate);
     }
   function deleteCard(uint id) public {

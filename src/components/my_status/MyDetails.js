@@ -10,12 +10,12 @@ const arrayChunk = (arr, n) => {
     
     return chunks;
 };
-const MyProfile = ({ user, myCards, buyOffer}) => {
+const MyProfile = ({ user, myCards, buyOffer, prevPurchasesLen}) => {
 
     let cards = []
     let soldCount = 0
     for(let i=0; i<myCards.length; i++) {
-        const card = <Card header={myCards[i][1]} content={myCards[i][2]} price={myCards[i][3]} soldCount={myCards[i][4]} buyHandler={()=> buyOffer(myCards[i].id, myCards[i].price)}/>
+        const card = <Card dontShowButtons={true} header={myCards[i][1]} content={myCards[i][2]} price={myCards[i][3]} ownerRate={myCards[i].ownerRate} buyHandler={()=> buyOffer(myCards[i].id, myCards[i].price)}/>
         if (myCards[i].soldCount > 0) {
             soldCount++
         }
@@ -40,7 +40,7 @@ const MyProfile = ({ user, myCards, buyOffer}) => {
                         </li>
                         <li className="list-group-item bg-dark border-info text-info"><strong>You have sold {soldCount} services!</strong>
                         <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike></li>
-                        <li className="list-group-item bg-dark border-info text-info"><strong>You have purchased XX services!</strong>
+                        <li className="list-group-item bg-dark border-info text-info"><strong>You have purchased {prevPurchasesLen} services!</strong>
                         <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike></li>
                         <li className="list-group-item bg-dark border-info text-info"><strong>Your user rating is {user.rate}!</strong>
                         <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike></li>

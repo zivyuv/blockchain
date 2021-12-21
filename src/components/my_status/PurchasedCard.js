@@ -36,7 +36,6 @@ const PurchasedCard = ({header, content, rateSeller, ownerRate}) => { // const s
                         {textAlign: "center"}
                 }>
                     {content}</p>
-                {/* //if soldcount = 0, should say "Be the first to recieve this service " */}
                 <p className="card-text"
                     style={
                         {textAlign: "center"}
@@ -44,13 +43,11 @@ const PurchasedCard = ({header, content, rateSeller, ownerRate}) => { // const s
                     This service was given xxENTER SOLDCOUNTxx times.
                 </p>
             </div>
-            {/* <ButtonGroup aria-label="Basic example">
-                <Button variant="info"style={{marginBottom: "1rem", textAlign: "center"}}>Buy for {price}$</Button>
-                <Button variant="light"style={{marginBottom: "1rem",textAlign: "center"}}>Rate Seller</Button>
-                </ButtonGroup> */}
-            <div className="card-footer bg-dark border-info ">
 
-                <button className="button" className="btn btn-light" style={{alignSelf: "center"}}>Report Seller</button>
+            <div className="card-footer bg-dark border-info "style = {{textAlign: "center"}}>
+            <button className="button" className="btn btn-light" onClick={rateSeller}>Rate Seller</button>
+
+            <button style = {{}}onClick={()=>{ alert('SOME MESSAGE'); }}>Report Seller</button>
 
             </div>
         </div>

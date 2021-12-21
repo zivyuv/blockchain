@@ -26,10 +26,10 @@ const NewCard = ({postOffer}) => {
                     <div className='text-info'>
                     <label><strong>Headline</strong></label>
                     <input type="text" id="headline" name="healine" placeholder="Enter Healine.." ref={headerRef}/>  
-                    
+
                     <label ><strong>Content</strong></label>
-                    <input type="text" id="content" name="content" placeholder="Enter Content.." ref={contentRef}/>  
-                    
+                    <textarea type="text" id="content" name="content" placeholder="Enter Content.." ref={contentRef} style={{width:"100%"}} cols="120" rows='3'/>  
+
                     <label ><strong>Price</strong></label>
                     <input type="text" id="price" name="price" placeholder="Enter Price.." ref={priceRf}/>  
                     

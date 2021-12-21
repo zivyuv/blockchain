@@ -11,18 +11,19 @@ const arrayChunk = (arr, n) => {
 
     return chunks;
 };
-const MyPurchases = ({user, myCards, rateSeller}) => {
+const MyPurchases = ({rateSeller, prevPurchases}) => {
     let cards = []
-    for (let i = 0; i < myCards.length; i++) {
+    for (let i = 0; i < prevPurchases.length; i++) {
         const card = <PurchasedCard header={
-                myCards[i][1]
+            prevPurchases[i][1]
             }
             content={
-                myCards[i][2]
+                prevPurchases[i][2]
             }
             rateSeller={
-                () => rateSeller(myCards[i].owner)
-            }/>
+                () => rateSeller(prevPurchases[i].owner)
+            }
+            ownerRate={prevPurchases[i].ownerRate}/>
         cards.push(card)
     }
     return (
