@@ -2,13 +2,10 @@ import Home from "../home/Home";
 import HomeStyle from '../home/Home.module.css'
 import NewCard from "../new_offer_card/NewCard";
 import MyStatus from "../my_status/MyStatus";
-import Card from "../card/Card";
 import Explore from "../explore/Explore";
 import {Route, Switch, Redirect} from "react-router";
 import React, {useContext, useRef} from 'react';
 import {accountContext} from '../AccountContext';
-import AuthContext from "../auth-context";
-import AuthForm from "../auth/AuthForm";
 
 const Main = ({
     usersCount,

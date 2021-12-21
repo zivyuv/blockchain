@@ -77,7 +77,7 @@ contract GiveNTake {
   function addUser(string memory _name) public {
  
     usersCount ++;
-    users[usersCount] = User(usersCount, _name, 0, msg.sender,0, 0);
+    users[usersCount] = User(usersCount, _name, 0, msg.sender,0, 1); // times I rated start with 1 to work with mod3
     usersByAddress[msg.sender] = users[usersCount];
     emit UserAdded(usersCount, _name, msg.sender);
   }
