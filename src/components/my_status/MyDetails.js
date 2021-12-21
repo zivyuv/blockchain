@@ -24,7 +24,8 @@ const MyProfile = ({ user, myCards, buyOffer, prevPurchasesLen}) => {
 
     return (
         // <div className="fill-window">
-              <div className="card-header bg-light border-info text-info" >
+              <div className="bg-light border-info text-info" >
+                  <h1></h1>
               <h1>Hello {
                 user.name.toUpperCase()
             }, Welcome Back!</h1>
@@ -38,9 +39,9 @@ const MyProfile = ({ user, myCards, buyOffer, prevPurchasesLen}) => {
                         <li className="list-group-item bg-dark border-info text-info"><strong>You have {myCards.length} active listings!</strong>
                         <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike>
                         </li>
-                        <li className="list-group-item bg-dark border-info text-info"><strong>You have sold {soldCount} services!</strong>
+                        <li className="list-group-item bg-dark border-info text-info"><strong>You have sold {soldCount} items!</strong>
                         <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike></li>
-                        <li className="list-group-item bg-dark border-info text-info"><strong>You have purchased {prevPurchasesLen} services!</strong>
+                        <li className="list-group-item bg-dark border-info text-info"><strong>You have purchased {prevPurchasesLen} items!</strong>
                         <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike></li>
                         <li className="list-group-item bg-dark border-info text-info"><strong>Your user rating is {user.rate}!</strong>
                         <BiLike style={{textAlign: "center", marginLeft: "1rem" , marginButtom:"0.5rem"}}></BiLike></li>

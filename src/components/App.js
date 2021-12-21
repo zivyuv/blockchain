@@ -207,7 +207,7 @@ class App extends Component {
                             usersCount={
                                 this.state.usersCount
                             }
-                            cardsCount={this.state.usersCount}
+                            cardsCount={this.state.cardsCount}
                             giveNTake={
                                 this.state.giveNTake
                             }

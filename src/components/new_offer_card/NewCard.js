@@ -25,15 +25,16 @@ const NewCard = ({postOffer}) => {
                 <form onSubmit={submitHandler}>
                     <div className='text-info'>
                     <label><strong>Headline</strong></label>
-                    <input type="text" id="headline" name="healine" placeholder="Enter Healine.." ref={headerRef}/>  
+                    <input type="text" id="headline" name="healine" placeholder="Enter Headline.." ref={headerRef}/>  
 
-                    <label ><strong>Content</strong></label>
-                    <textarea type="text" id="content" name="content" placeholder="Enter Content.." ref={contentRef} style={{width:"100%"}} cols="120" rows='3'/>  
+                    <label ><strong>Item Description</strong></label>
+                    <textarea type="text" id="content" name="content" placeholder="Enter Content.." ref={contentRef} style={{width:"100%"}} rows='2'/>  
 
                     <label ><strong>Price</strong></label>
                     <input type="text" id="price" name="price" placeholder="Enter Price.." ref={priceRf}/>  
                     
-                    <label ><strong>Url to social network</strong></label>
+                    <label ><strong>Upload Item</strong></label>
+                    {/* insert option to browse item from computer */}
                     <input type="url" id="url" name="url" placeholder="Enter url.." ref={urlRef}/>  
                     </div>
                     <input type="submit" value="Submit"></input>

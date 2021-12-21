@@ -1,11 +1,12 @@
 import React from 'react';
+import Explore from "../explore/Explore";
 import Badge from '@material-ui/core/Badge';
-import {Button} from 'react-bootstrap';
-import {ButtonGroup} from 'react-bootstrap';
 import {BsFillStarFill} from "react-icons/bs";
 
 
-const PurchasedCard = ({header, content, rateSeller, ownerRate}) => { // const strPrice = "Buy" + price
+const PurchasedCard = ({header, content, rateSeller, sentence}) => { // const strPrice = "Buy" + price
+    
+    const _sentence = sentence ? sentence : ""
     return (
         <div className="card border-info bg-dark mb-4"
             style={
@@ -17,7 +18,7 @@ const PurchasedCard = ({header, content, rateSeller, ownerRate}) => { // const s
                         {textAlign: "center"}
                 }>
                     {header}
-                    <Badge badgeContent={ownerRate}
+                    <Badge
                         color="secondary"
                         style={
                             {float: "right"}
@@ -40,14 +41,14 @@ const PurchasedCard = ({header, content, rateSeller, ownerRate}) => { // const s
                     style={
                         {textAlign: "center"}
                 }>
-                    This service was given xxENTER SOLDCOUNTxx times.
+                     {_sentence}
                 </p>
             </div>
 
             <div className="card-footer bg-dark border-info "style = {{textAlign: "center"}}>
             <button className="button" className="btn btn-light" onClick={rateSeller}>Rate Seller</button>
 
-            <button style = {{}}onClick={()=>{ alert('SOME MESSAGE'); }}>Report Seller</button>
+            {/* <button style = {{}}onClick={()=>{ alert('SOME MESSAGE'); }}>Report Seller</button> */}
 
             </div>
         </div>

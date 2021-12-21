@@ -74,21 +74,21 @@ const Card = ({
             
     {_showButtons &&    <div className="card-footer bg-dark border-info " style = {{textAlign: "center"}}>
 
-            <button className="button" className="btn btn-light"
+            {/* <button className="button" className="btn btn-light"
                 style={
                     {
                         marginLeft: "3rem",
                         marginRight: "3rem"
                     }
-            }>Check Out Profile</button>
+            }>Check Out Profile</button> */}
 
-            <button className="button" className="btn btn-light"
+            {/* <button className="button" className="btn btn-light"
                 style={
                     {
                         marginLeft: "3rem",
                         marginRight: "3rem"
                     }
-            }>Rate Seller</button>
+            }>Rate Seller</button> */}
             
         </div>}
         </div>
